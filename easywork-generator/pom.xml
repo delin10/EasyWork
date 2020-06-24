@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>Easywork</artifactId>
+        <groupId>nil.ed.easywork</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>nil.ed.easywork.generator</groupId>
+    <artifactId>easywork-generator</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>nil.ed.easywork.dependency</groupId>
+            <artifactId>easywork-common-dependency</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nil.ed.easywork.template</groupId>
+            <artifactId>easywork-template-engin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nil.ed.easywork.source</groupId>
+            <artifactId>easywork-source-parser</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nil.ed.easywork.comment</groupId>
+            <artifactId>easywork-comment-parser</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nil.ed.easywork.sql</groupId>
+            <artifactId>easywork-sql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nil.ed.easywork.util</groupId>
+            <artifactId>easywork-util</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>
