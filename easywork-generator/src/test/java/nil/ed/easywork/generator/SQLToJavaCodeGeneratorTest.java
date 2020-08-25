@@ -25,7 +25,7 @@ public class SQLToJavaCodeGeneratorTest {
         engine.setTemplateResolver(resolver);
         ITemplateEngineAdapter<IContext> adapter = new ThymeLeafTemplateEngineAdapter(engine);
 
-        TemplateContext context = new TemplateContext(ClasspathFileUtils.getClassPath("/tpl").substring(1));
+        TemplateContext context = new TemplateContext(ClasspathFileUtils.getClassPath("/tpl"));
         Config config = new Config();
         config.setBasePkg("com.kuaikan.ads.kyle.operation.log");
         config.setBasePath("/Users/admin/delin/generated");

@@ -91,6 +91,8 @@ public class TypeMapper {
                 "java.time.OffsetTime"); //$NON-NLS-1$
         typeMap.put("TIMESTAMP_WITH_TIMEZONE", //$NON-NLS-1$
                 "java.time.OffsetDateTime"); //$NON-NLS-1$
+        typeMap.put("TEXT", //$NON-NLS-1$
+                "String");
     }
 
     public String map(String sqlType) {
