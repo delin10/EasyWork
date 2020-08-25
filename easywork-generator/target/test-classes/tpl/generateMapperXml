@@ -1,0 +1,90 @@
+!=MAPPER_XML
+<#assign idCol="${table.id.name}">
+<#assign idField="${colFieldMap[idCol].name}">
+<#assign entityFullName="${root.basePkg}.entity.${entity.name}">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${root.basePkg}.${entity.name}Mapper">
+    <resultMap id="resultMap" type="${entityFullName}">
+        <#list entity.fields as field>
+        <<#if field.primary>id<#else>result</#if> column="${fieldColMap[field.name].name}" property="${field.name}" jdbcType="${fieldColMap[field.name].type}"/>
+        </#list>
+    </resultMap>
+
+    <sql id="tableName">
+        `${table.name}`
+    </sql>
+
+    <sql id="insertCols">
+        <#list insertFields as field>
+        `${fieldColMap[field.name].name}`<#sep>,
+        </#sep>
+        </#list>
+    </sql>
+
+    <sql id="insertValues">
+        <#list insertFields as field>
+        <#noparse>#{</#noparse>${field.name}`<#sep><#noparse>}</#noparse>,
+        </#sep>
+        </#list>
+    </sql>
+
+    <sql id="whereId">
+        <where>
+            ${idCol}=<#noparse>#{</#noparse>${idField}<#noparse>}</#noparse>
+        </where>
+    </sql>
+
+    <insert id="insert" parameterType="${entityFullName}" useGeneratedKeys="true"
+            keyProperty="${idField}">
+        insert into
+        <include refid="tableName"/>(<include refid="insertCols"/>)
+        values(<include refid="insertValues"/>)
+    </insert>
+
+    <update id="update" parameterType="${entityFullName}">
+        update <include refid="tableName"/>
+        <set>
+            <#list updateFields as field>
+            `${fieldColMap[field.name].name}` = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse><#sep>,
+            </#sep>
+            </#list>
+        </set>
+        <include refid="whereId"/>
+    </update>
+
+    <select id="getById" resultMap="resultMap">
+        select *
+        from <include refid="tableName"/>
+        <include refid="whereId"/>
+    </select>
+
+    <select id="list" resultMap="resultMap">
+        select *
+        from  <include refid="tableName"/>
+        <where>
+            <#list listFields as field>
+            <if test="${field.name} != null">
+                `${fieldColMap[field.name].name}` = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse><#sep> and </#sep>
+            </if>
+            </#list>
+        </where>
+        order by ${idCol}
+        limit <#noparse>#{</#noparse>start\},#<#noparse>{<1#noparse>size<#noparse>}</#noparse>
+    </select>
+
+    <select id="search" resultMap="resultMap">
+        select *
+        from  <include refid="tableName"/>
+        <where>
+            <if test="query != null">
+            <#list searchFields as field>
+                `${fieldColMap[field.name].name}` like concat('%', #{query}, '%)'<#sep> or </#sep>
+            </#list>
+            </if>
+        </where>
+        order by ${idCol}
+        limit <#noparse>#{</#noparse>start<#noparse>}</#noparse>,<#noparse>#{</#noparse>size<#noparse>}</#noparse>
+    </select>
+
+</mapper>
