@@ -5,6 +5,8 @@ import lombok.ToString;
 import nil.ed.easywork.sql.enums.OpEnums;
 import nil.ed.easywork.sql.exception.MyException;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -15,7 +17,7 @@ import java.util.TreeSet;
 @ToString(callSuper = true)
 public class WithFieldsTableObj extends BaseTableObj {
 
-    private SortedSet<ColumnField> fields = new TreeSet<>();
+    private List<ColumnField> fields = new LinkedList<>();
 
     @Getter
     private ColumnField id;
@@ -37,7 +39,7 @@ public class WithFieldsTableObj extends BaseTableObj {
         return field;
     }
 
-    public SortedSet<ColumnField> getFields() {
+    public List<ColumnField> getFields() {
         return fields;
     }
 }

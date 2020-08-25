@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class ShardingsphereSQLParserImpl implements ISQLParser {
 
     @Getter
-    private DbType dbType;
+    private final DbType dbType;
 
     public ShardingsphereSQLParserImpl(DbType dbType) {
         // todo assert null error
@@ -72,9 +72,10 @@ public class ShardingsphereSQLParserImpl implements ISQLParser {
     /**
     .* 匹配除\n之外的所有单字符
      */
-    private static Pattern colCommentPattern = Pattern.compile("[\\S\\s]+\\s*comment\\s*['\"](.*?)['\"]\\s*[,;]?", Pattern.CASE_INSENSITIVE);
-    public String parseComment(String columnDefSql) {
-        Matcher matcher = colCommentPattern.matcher(columnDefSql);
+    private static final String COL_COMMENT_PATTERN_STR = "[\\S\\s]+\\s*comment\\s*['\"](.*?)['\"]\\s*[,;]?";
+    private static final Pattern COL_COMMENT_PATTERN = Pattern.compile(COL_COMMENT_PATTERN_STR, Pattern.CASE_INSENSITIVE);
+    public String parseComment(String oneDef) {
+        Matcher matcher = COL_COMMENT_PATTERN.matcher(oneDef);
 
         if (!matcher.matches()) {
             return "";

@@ -1,0 +1,9 @@
+
+A
+java:S1444"+Make this "public static utils" field final(—üÁÉ
+g
+java:S1104"QMake utils a static final constant or non-public and provide accessors if needed.(—üÁÉ
+3
+java:S2386"Make this member "protected".(—üÁÉ
+w
+java:S1845"aRename field "UTILS" to prevent any misunderstanding/clash with field "utils" defined on line 14.(ó±…µ

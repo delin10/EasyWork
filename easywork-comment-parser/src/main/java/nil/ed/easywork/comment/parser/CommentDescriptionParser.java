@@ -2,7 +2,9 @@ package nil.ed.easywork.comment.parser;
 
 import nil.ed.easywork.comment.enums.FunctionEnum;
 import nil.ed.easywork.comment.obj.CommentDescription;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,11 +20,16 @@ import java.util.List;
 public class CommentDescriptionParser {
 
     public List<CommentDescription> parse(String comment) {
+        if (StringUtils.isBlank(comment)) {
+            return Collections.emptyList();
+        }
         int i = 0;
+        String[] arr = comment.split(",");
         List<CommentDescription> commentDescriptions = new LinkedList<>();
-        while (i < comment.length()) {
+        for (String one : arr) {
+            System.out.println(one);
             CommentDescription description = new CommentDescription();
-            i = parseOneDescription(comment, description, i);
+            i = parseOneDescription(one, description, i);
             if (i < 0) {
                 throw new IllegalArgumentException("出错");
             }
@@ -60,7 +67,6 @@ public class CommentDescriptionParser {
         if (str.charAt(end) == ']') {
             return str.length();
         }
-        start = end = end + 1;
         while (!isTerminate(str, end)) {
             while (end < str.length() && str.charAt(end) != '(') {
                 end++;
@@ -77,6 +83,8 @@ public class CommentDescriptionParser {
                 return -1;
             }
             String identifier = str.substring(start, end);
+            System.out.println(identifier);
+            System.out.println(func);
             if ("type".equals(func)) {
                 description.setType(identifier);
             } else if ("name".equals(func)) {
@@ -89,10 +97,6 @@ public class CommentDescriptionParser {
 
             if (str.charAt(end) == ']') {
                 return start + 1;
-            }
-
-            if (str.charAt(end) == ',') {
-                start = end = end + 1;
             }
         }
         return str.length();

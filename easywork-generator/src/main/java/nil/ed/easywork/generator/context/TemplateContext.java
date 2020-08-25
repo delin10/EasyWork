@@ -19,6 +19,7 @@ import java.util.Map;
 public class TemplateContext {
 
     public static final String ENTITY = "ENTITY";
+    public static final String MODEL = "MODEL";
     public static final String VO = "VO";
     public static final String CONTROLLER = "CONTROLLER";
     public static final String MAPPER = "MAPPER";

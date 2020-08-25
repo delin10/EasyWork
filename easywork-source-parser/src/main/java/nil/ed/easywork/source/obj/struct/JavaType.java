@@ -15,9 +15,13 @@ public class JavaType {
 
     private String name;
 
-    private String fullyName;
+    private final String fullyName;
 
     private JavaType generic;
+
+    public static JavaType create(String fullyName) {
+        return new JavaType(fullyName);
+    }
 
     public JavaType(String fullyName) {
         this.fullyName = fullyName;

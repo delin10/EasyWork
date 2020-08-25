@@ -17,11 +17,11 @@ import java.util.List;
  **/
 @Setter
 @Getter
-public class EntityField extends BaseField {
+public class ModelField extends BaseField {
 
     private boolean primary;
 
-    public EntityField(String name, JavaType type) {
+    public ModelField(String name, JavaType type) {
         super(name, type);
         setRender(new EntityFieldRender());
     }
