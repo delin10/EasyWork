@@ -15,7 +15,7 @@ import org.thymeleaf.templateresolver.StringTemplateResolver;
 
 public class SQLToJavaCodeGeneratorTest {
 
-    private SQLFileProcessor processor = new SQLFileProcessor("D:/test/sql.txt");
+    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/operation_log");
 
     @Test
     public void generate() {
@@ -27,9 +27,8 @@ public class SQLToJavaCodeGeneratorTest {
 
         TemplateContext context = new TemplateContext(ClasspathFileUtils.getClassPath("/tpl").substring(1));
         Config config = new Config();
-        config.setBasePkg("org.delin");
-        config.setBasePath("D:/source");
-        config.setPrefix("t_");
+        config.setBasePkg("com.kuaikan.ads.kyle.operation.log");
+        config.setBasePath("/Users/admin/delin/generated");
         SQLToJavaCodeGenerator generator = new SQLToJavaCodeGenerator(config, new FreeMarkerTemplateEngineAdapter(), processor);
         generator.generate(context);
     }
