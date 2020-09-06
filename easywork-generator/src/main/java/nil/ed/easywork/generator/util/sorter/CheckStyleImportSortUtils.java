@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class CheckStyleImportSortUtils {
 
-    private static final int DEFAULT_PRIORITY = Integer.MAX_VALUE;
+    private static final int DEFAULT_PRIORITY = Integer.MIN_VALUE;
     private static final Map<String, Integer> IMPORT_PRIORITY_MAP = new HashMap<>();
 
     static {

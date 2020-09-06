@@ -24,7 +24,7 @@ public class AdsTypeMapper implements ITypeMapper {
         batchPut(UsualJavaTypeCache.getType(Object.class),
                 "ARRAY", "DATALINK", "DISTINCT", "JAVA_OBJECT", "NULL", "OTHER", "REF", "STRUCT");
         batchPut(UsualJavaTypeCache.getType(String.class),
-                "CHAR", "CLOB", "LONGNVARCHAR", "NCHAR", "NCLOB", "NVARCHAR", "VARCHAR");
+                "CHAR", "CLOB", "LONGNVARCHAR", "NCHAR", "NCLOB", "NVARCHAR", "VARCHAR", "TEXT");
         batchPut(UsualJavaTypeCache.getType(Double.class),
                 "DOUBLE", "FLOAT");
         batchPut(UsualJavaTypeCache.getType(Long.class), "BIGINT");

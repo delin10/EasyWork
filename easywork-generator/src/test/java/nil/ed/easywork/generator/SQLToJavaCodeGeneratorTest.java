@@ -4,6 +4,8 @@ import nil.ed.easywork.generator.config.Config;
 import nil.ed.easywork.generator.context.TemplateContext;
 import nil.ed.easywork.generator.generator.SQLToJavaCodeGenerator;
 import nil.ed.easywork.generator.sql.SQLFileProcessor;
+import nil.ed.easywork.generator.type.impl.AdsTypeMapper;
+import nil.ed.easywork.generator.type.impl.MyBatisColTypeTransformer;
 import nil.ed.easywork.template.FreeMarkerTemplateEngineAdapter;
 import nil.ed.easywork.template.ITemplateEngineAdapter;
 import nil.ed.easywork.template.ThymeLeafTemplateEngineAdapter;
@@ -16,7 +18,8 @@ import org.thymeleaf.templateresolver.StringTemplateResolver;
 
 public class SQLToJavaCodeGeneratorTest {
 
-    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/summary");
+    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/operation_log",
+            new AdsTypeMapper(), new MyBatisColTypeTransformer());
 
     @Test
     public void generate() {
@@ -26,11 +29,13 @@ public class SQLToJavaCodeGeneratorTest {
         engine.setTemplateResolver(resolver);
         ITemplateEngineAdapter<IContext> adapter = new ThymeLeafTemplateEngineAdapter(engine);
 
-        TemplateContext context = new TemplateContext(ClasspathFileUtils.getClassPath("/tpl"));
         Config config = new Config();
-        config.setBasePkg("com.kuaikan.ads.kyle.finance");
+        config.setBasePkg("com.kuaikan.ads.kyle.operation.log");
         config.setBasePath("/Users/admin/delin/generated");
         config.setPrefix("");
+        config.setProfile("kyle");
+        TemplateContext context = new TemplateContext(ClasspathFileUtils.getClassPath("/tpl/" + config.getProfile()));
+
         SQLToJavaCodeGenerator generator = new SQLToJavaCodeGenerator(config, new FreeMarkerTemplateEngineAdapter(), processor);
         generator.generate(context);
     }

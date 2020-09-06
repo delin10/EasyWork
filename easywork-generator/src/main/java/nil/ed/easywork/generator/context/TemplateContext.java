@@ -3,6 +3,8 @@ package nil.ed.easywork.generator.context;
 import lombok.extern.slf4j.Slf4j;
 import nil.ed.easywork.util.Utils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.MutableTriple;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,19 +26,40 @@ public class TemplateContext {
     public static final String CONTROLLER = "CONTROLLER";
     public static final String MAPPER = "MAPPER";
     public static final String SERVICE = "SERVICE";
+    public static final String REPO_INTERFACE = "REPO";
+    public static final String REPO_IMPL = "REPO_IMPL";
     public static final String MAPPER_XML = "MAPPER_XML";
+    public static final String COND = "COND";
 
-    private Map<String, String> template = new HashMap<>();
+    private static final Map<String, MutableTriple<String, String, String>> TEMPLATE_CACHE = new HashMap<>();
 
-    private String baseDir;
+    static {
+        TEMPLATE_CACHE.put(ENTITY, MutableTriple.of("entity", "%sEntity.java",""));
+        TEMPLATE_CACHE.put(MODEL, MutableTriple.of("model", "%s.java", ""));
+        TEMPLATE_CACHE.put(VO, MutableTriple.of("vo", "%sVO.java", ""));
+        TEMPLATE_CACHE.put(CONTROLLER, MutableTriple.of("controller", "%sController.java", ""));
+        TEMPLATE_CACHE.put(MAPPER, MutableTriple.of("dao", "%sMapper.java", ""));
+        TEMPLATE_CACHE.put(SERVICE, MutableTriple.of("service", "%sService.java", ""));
+        TEMPLATE_CACHE.put(REPO_INTERFACE, MutableTriple.of("repository", "%sRepo.java", ""));
+        TEMPLATE_CACHE.put(REPO_IMPL, MutableTriple.of("repository/impl", "%sRepositoryImpl.java", ""));
+        TEMPLATE_CACHE.put(MAPPER_XML, MutableTriple.of("mapper_xml", "%sMapper.xml", ""));
+        TEMPLATE_CACHE.put(COND, MutableTriple.of("condition", "%sQueryCondition.java", ""));
+    }
+
+    private final String baseDir;
 
     public TemplateContext(String baseDir) {
         this.baseDir = baseDir;
         load();
     }
 
-    public String getTemplate(String name) {
-        return template.get(name);
+    public MutableTriple<String, String, String> getTemplate(String name) {
+        return TEMPLATE_CACHE.get(name);
+    }
+
+    public Map<String, MutableTriple<String, String, String>> getTemplateCache() {
+
+        return TEMPLATE_CACHE;
     }
 
     private void load() {
@@ -58,13 +81,16 @@ public class TemplateContext {
                     if (nameBuilder.length() == 0) {
                         nameBuilder.append(FilenameUtils.getBaseName(f.getName()));
                     }
-                    template.put(nameBuilder.toString(), text);
+                    TEMPLATE_CACHE.putIfAbsent(nameBuilder.toString(), 
+                            MutableTriple.of("", "%s" + nameBuilder.toString(), text));
+                    TEMPLATE_CACHE.get(nameBuilder.toString()).right = text;
                 } catch (IOException e) {
                     log.error("Failed to read template: {}!", f.getAbsolutePath(), e);
                 }
             });
+            TEMPLATE_CACHE.entrySet().removeIf(entry -> StringUtils.isBlank(entry.getValue().right));
             if (log.isDebugEnabled()) {
-                log.debug("Load complete! templates = {}", template);
+                log.debug("Load complete! templates = {}", TEMPLATE_CACHE);
             }
         }catch (FileNotFoundException e) {
             log.error("Failed to load templates!", e);

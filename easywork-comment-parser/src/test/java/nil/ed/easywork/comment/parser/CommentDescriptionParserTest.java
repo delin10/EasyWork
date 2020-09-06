@@ -22,7 +22,7 @@ public class CommentDescriptionParserTest {
         description = parser.parse("list[]");
         System.out.println(description);
         description = parser.parse("list");
-        description = parser.parse("list,insert");
+        description = parser.parse("list&insert");
         System.out.println(description);
     }
 }

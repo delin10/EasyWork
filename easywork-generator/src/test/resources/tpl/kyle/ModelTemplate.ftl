@@ -8,6 +8,9 @@ import ${import};
 import lombok.Data
 import lombok.experimental.Accessors;
 
+/**
+* @author easywork.
+*/
 @Data
 @Accessors(chain = true)
 public class ${entity.name} {
