@@ -1,7 +1,5 @@
 package nil.ed.easywork.generator.generator;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import nil.ed.easywork.comment.enums.FunctionEnum;

@@ -1,11 +1,13 @@
 !=COND
 package ${root.basePkg}.condition;
 
-import lombok.Data
+import com.kuaikan.ads.kyle.common.page.PageCondition;
+import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.util.Set;
 import java.util.List;
+
 /**
  * @author easywork.
  */
@@ -21,3 +23,4 @@ public class ${entity.name}QueryCondition extends PageCondition {
     private String query;
 </#if>
 }
+<#noparse></#noparse>

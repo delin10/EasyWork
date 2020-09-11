@@ -5,6 +5,16 @@
 <#function isCollection type>
     <#return type?starts_with("Set") || type?starts_with("List") || type?starts_with("Collection")>
 </#function>
+
+<#function isContains list e>
+    ${e}
+    <#list list as item>
+        <#if item?starts_with(e) && item?length = e?length>
+            <#return true>
+        </#if>
+    </#list>
+    <#return false>
+</#function>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="${root.basePkg}.dao.${entity.name}Mapper">
@@ -27,7 +37,6 @@
     </sql>
 
     <sql id="INSERT_VALUES">
-        #{insertFields?size}
         <#if (insertFields?size) = 0 >
             <#list entity.fields as field>
         <#noparse>#{</#noparse>${field.name}<#sep><#noparse>}</#noparse>,</#sep>
@@ -65,30 +74,34 @@
     </update>
 
     <sql id="LIST_WHERE">
-        <#list listFields as field>
-            <#if searchFields?seq_contains(field)>
-        and ${fieldColMap[field]} like concat('%', <#noparse>#{</#noparse>query<#noparse>}</#noparse>, '%')
-            <#elseif isCollection('${fieldDescs[field+"-list"].type}')>
-        <if test = "${fieldDescs[field+"-list"].name} != null and ${fieldDescs[field+"-list"].name}.size > 0">
-            and ${fieldDescs[field+"-list"].originName} in
-            <foreach collection="${fieldDescs[field+"-list"].name}" item="item" open="(" close=")" seperator=",">
-            <#noparse>{</#noparse>item<#noparse>}</#noparse>
-            </foreach>
-        </if>
-            <#else>
-        <if test="${field} != null}">
-            and ${fieldColMap[field].name}='<#noparse>#{</#noparse>${field}<#noparse>}</#noparse>'
-        </if>
-            </#if>
-        </#list>
+        <where>
+            <#list listFields as field>
+                <#if searchFields?seq_contains('${field}')>
+            <if test="query !=null and query != ''">
+                and ${fieldColMap[field].name} like concat('%', <#noparse>#{</#noparse>query<#noparse>}</#noparse>, '%')
+            </if>
+                <#elseif isCollection('${fieldDescs[field+"-list"].type}')>
+            <if test = "${fieldDescs[field+"-list"].name} != null and ${fieldDescs[field+"-list"].name}.size > 0">
+                and ${fieldDescs[field+"-list"].originName} in
+                <foreach collection="${fieldDescs[field+"-list"].name}" item="item" open="(" close=")" seperator=",">
+                <#noparse>#{</#noparse>item<#noparse>}</#noparse>
+                </foreach>
+            </if>
+                <#else>
+            <if test="${field} != null}">
+                and ${fieldColMap[field].name}='<#noparse>#{</#noparse>${field}<#noparse>}</#noparse>'
+            </if>
+                </#if>
+            </#list>
+        </where>
     </sql>
 
-    <select id="list" resultMap="resultMap">
+    <select id="getList" resultMap="resultMap">
         select *
         from  <include refid="TABLE_NAME"/>
-        <include ref="LIST_WHERE"/>
+        <include refid="LIST_WHERE"/>
         order by ${idCol}
-        <if test="size < 0">
+        <if test="start > -1 and pageSize > 0">
             limit <#noparse>#{</#noparse>start<#noparse>}</#noparse>,<#noparse>#{</#noparse>size<#noparse>}</#noparse>
         </if>
     </select>
@@ -96,6 +109,7 @@
     <select id="count" resultType="long">
         select count(1)
         from  <include refid="TABLE_NAME"/>
-        <include ref="LIST_WHERE"/>
+        <include refid="LIST_WHERE"/>
     </select>
 </mapper>
+<#noparse></#noparse>

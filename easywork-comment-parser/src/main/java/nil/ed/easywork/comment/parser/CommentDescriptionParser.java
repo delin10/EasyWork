@@ -55,7 +55,7 @@ public class CommentDescriptionParser {
                 i++;
                 continue;
             }
-            i += identifier.length() + 1;
+            i += name.length() + 1;
             String value = getOneIdentifier(str, i, endCharSet);
             if (StringUtils.isBlank(value)) {
                 i++;

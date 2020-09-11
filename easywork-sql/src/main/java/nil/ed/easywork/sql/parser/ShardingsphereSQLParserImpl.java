@@ -64,6 +64,9 @@ public class ShardingsphereSQLParserImpl implements ISQLParser {
                 field.setComment(parseComment(colDefSql));
             }
             tableObj.setComment(parseComment(sql));
+            if (tableObj.getId() == null) {
+                tableObj.addPrimaryField("id", "bigint");
+            }
             return tableObj;
         }
         return null;

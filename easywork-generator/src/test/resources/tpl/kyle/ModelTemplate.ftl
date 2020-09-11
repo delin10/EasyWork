@@ -4,8 +4,7 @@ package ${root.basePkg}.model;
 <#list entity.imports as import>
 import ${import};
 </#list>
-
-import lombok.Data
+import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
@@ -16,7 +15,11 @@ import lombok.experimental.Accessors;
 public class ${entity.name} {
 
 <#list entity.fields as field>
+    /**
+     * ${fieldColMap[field.name].comment}.
+     */
     private ${field.type.name} ${field.name};
 
 </#list>
 }
+<#noparse></#noparse>

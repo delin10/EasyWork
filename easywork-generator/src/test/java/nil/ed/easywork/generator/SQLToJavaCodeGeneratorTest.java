@@ -18,7 +18,7 @@ import org.thymeleaf.templateresolver.StringTemplateResolver;
 
 public class SQLToJavaCodeGeneratorTest {
 
-    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/operation_log",
+    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/ad_marketing_case.sql",
             new AdsTypeMapper(), new MyBatisColTypeTransformer());
 
     @Test
@@ -30,8 +30,12 @@ public class SQLToJavaCodeGeneratorTest {
         ITemplateEngineAdapter<IContext> adapter = new ThymeLeafTemplateEngineAdapter(engine);
 
         Config config = new Config();
-        config.setBasePkg("com.kuaikan.ads.kyle.operation.log");
-        config.setBasePath("/Users/admin/delin/generated");
+//        String basePkg = "com.kuaikan.ads.kyle.operation.log";
+//        String basePkg = "com.kuaikan.ads.kyle.account.reserved";
+        String basePkg = "com.kuaikan.ads.kyle.ad";
+        String basePath = "/Users/admin/delin/generated/market_case";
+        config.setBasePkg(basePkg);
+        config.setBasePath(basePath);
         config.setPrefix("");
         config.setProfile("kyle");
         TemplateContext context = new TemplateContext(ClasspathFileUtils.getClassPath("/tpl/" + config.getProfile()));

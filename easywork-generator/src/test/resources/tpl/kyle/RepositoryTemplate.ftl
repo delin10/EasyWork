@@ -2,20 +2,20 @@
 package ${root.basePkg}.repository.impl;
 
 <#assign modelFullName="${root.basePkg}.model.${entity.name}">
+import ${root.basePkg}.condition.${entity.name}QueryCondition;
+import ${root.basePkg}.dao.${entity.name}Mapper;
 import ${modelFullName};
-import ${root.basePkg}.repository.${entity.name}Repo
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import ${root.basePkg}.repository.${entity.name}Repo;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import javax.annotation.Resource;
-import javax.util.List;
 
 <#assign entityCamelName="${utils.pascalToCamel.trans(entity.name)}">
 /**
  * @author easywork.
  */
-@SLF4J
-@Service
+@Repository
 public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
 
     @Resource
@@ -32,12 +32,14 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
     }
 
     @Override
-    public List<${entity.name}> list(${entity.name}QueryCondition condition) {
-        ${entityCamelName}Mapper.list(condition);
+    public List<${entity.name}> getList(${entity.name}QueryCondition condition) {
+        return ${entityCamelName}Mapper.getList(condition);
     }
 
+    @Override
     public long count(${entity.name}QueryCondition condition) {
-        ${entityCamelName}Mapper.list(condition);
+        return ${entityCamelName}Mapper.count(condition);
     }
 
 }
+<#noparse></#noparse>

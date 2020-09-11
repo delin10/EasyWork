@@ -14,12 +14,33 @@ import java.util.List;
  */
 public interface ${entity.name}Mapper {
 
-    Long insert(${entity.name} ${entityCamelName});
+    /**
+     * 插入记录.
+     * @param ${entityCamelName} 记录.
+     * @return 影响行数.
+     */
+    long insert(${entity.name} ${entityCamelName});
 
-    Long update(${entity.name} ${entityCamelName});
+    /**
+     * 更新记录.
+     * @param ${entityCamelName} 记录.
+     * @return 影响行数.
+     */
+    long update(${entity.name} ${entityCamelName});
 
-    List<${entity.name}> list(${entity.name}QueryCondition condition);
+    /**
+     * 根据条件查询列表.
+     * @param condition 条件.
+     * @return 列表.
+     */
+    List<${entity.name}> getList(${entity.name}QueryCondition condition);
 
+    /**
+     * 根据条件查询记录总数.
+     * @param condition 条件.
+     * @return 总数.
+     */
     long count(${entity.name}QueryCondition condition);
 
 }
+<#noparse></#noparse>

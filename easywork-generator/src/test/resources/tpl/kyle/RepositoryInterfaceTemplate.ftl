@@ -2,23 +2,16 @@
 package ${root.basePkg}.repository;
 <#assign modelFullName="${root.basePkg}.model.${entity.name}">
 
+import ${root.basePkg}.condition.${entity.name}QueryCondition;
 import ${modelFullName};
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import javax.util.List;
+import java.util.List;
 
 <#assign entityCamelName="${utils.pascalToCamel.trans(entity.name)}">
 /**
  * @author easywork.
  */
-@SLF4J
-@Service
 public interface ${entity.name}Repo {
-
-    @Resource
-    private ${entity.name}Mapper ${entityCamelName}Mapper;
 
     /**
      * 更新实体.
@@ -39,7 +32,7 @@ public interface ${entity.name}Repo {
      * @param condition 条件.
      * @return 结果.
      */
-    List<${entity.name}> list(${entity.name}QueryCondition condition);
+    List<${entity.name}> getList(${entity.name}QueryCondition condition);
 
     /**
      * 根据条件查询列表.
@@ -49,3 +42,4 @@ public interface ${entity.name}Repo {
     long count(${entity.name}QueryCondition condition);
 
 }
+<#noparse></#noparse>
