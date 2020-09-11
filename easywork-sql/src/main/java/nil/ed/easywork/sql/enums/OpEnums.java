@@ -14,8 +14,9 @@ public enum OpEnums {
      * SQL语句的类型
      */
     CREATE_TABLE("CREATE", "创建表语句");
-    private String op;
 
-    private String desc;
+    private final String op;
+
+    private final String desc;
 
 }

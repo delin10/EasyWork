@@ -22,6 +22,7 @@ public class GenerateContextBuilder {
     public static final String INSERT_FIELDS = "insertFields";
     public static final String SEARCH_FIELDS = "searchFields";
     public static final String UPDATE_FIELDS = "updateFields";
+    public static final String FIELD_DESC = "fieldDescs";
     public static final String FIELD_COL_MAP = "fieldColMap";
     public static final String COL_FIELD_MAP = "colFieldMap";
     public static final String UTILS = "utils";

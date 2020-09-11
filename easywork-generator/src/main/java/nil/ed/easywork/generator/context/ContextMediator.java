@@ -2,11 +2,11 @@ package nil.ed.easywork.generator.context;
 
 import nil.ed.easywork.comment.enums.FunctionEnum;
 import nil.ed.easywork.source.obj.LineOutput;
-import nil.ed.easywork.generator.java.obj.entity.EntityField;
+import nil.ed.easywork.generator.java.obj.entity.ModelField;
 import nil.ed.easywork.source.obj.struct.*;
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton;
 import nil.ed.easywork.generator.sql.obj.TableDetails;
-import nil.ed.easywork.generator.type.TypeMapper;
+import nil.ed.easywork.generator.type.impl.TypeMapper;
 
 /**
  * @author delin10
@@ -18,7 +18,7 @@ public class ContextMediator {
 
     private JavaContext javaContext;
 
-    private TypeMapper mapper = new TypeMapper();
+    private final TypeMapper mapper = new TypeMapper();
 
     public ContextMediator(SQLContext sqlContext, JavaContext javaContext) {
         this.sqlContext = sqlContext;
@@ -68,7 +68,7 @@ public class ContextMediator {
                 .forEach(columnDetails -> {
                     String name = NamingTranslatorSingleton.UNDERLINE_TO_CAMEL.trans(columnDetails.getField().getName());
                     JavaType type = new JavaType(sqlTypeToJavaType(columnDetails.getField().getType(),null));
-                    EntityField field = new EntityField(name, type);
+                    ModelField field = new ModelField(name, type);
                     field.setPrimary(columnDetails.getField().isPrimary());
                     clazz.getFields().add(field);
                     if (!"java.lang".equals(type.getPkg())) {

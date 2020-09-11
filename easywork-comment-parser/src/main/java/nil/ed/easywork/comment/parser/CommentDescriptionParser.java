@@ -1,10 +1,15 @@
 package nil.ed.easywork.comment.parser;
 
+import com.google.common.collect.Sets;
 import nil.ed.easywork.comment.enums.FunctionEnum;
 import nil.ed.easywork.comment.obj.CommentDescription;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 注释解析器
@@ -17,96 +22,64 @@ import java.util.List;
  **/
 public class CommentDescriptionParser {
 
+    private final Character terminateChar = ']';
+    private final Set<Character> startCharSet = Sets.newHashSet('[', '(', ',');
+    private final Set<Character> endCharSet = Sets.newHashSet(']', ')');
+
     public List<CommentDescription> parse(String comment) {
+        if (StringUtils.isBlank(comment)) {
+            return Collections.emptyList();
+        }
         int i = 0;
+        String[] arr = comment.split("&");
         List<CommentDescription> commentDescriptions = new LinkedList<>();
-        while (i < comment.length()) {
+        for (String one : arr) {
+            System.out.println(one);
             CommentDescription description = new CommentDescription();
-            i = parseOneDescription(comment, description, i);
-            if (i < 0) {
-                throw new IllegalArgumentException("出错");
-            }
+            parseOneDescription(one, description, 0);
             commentDescriptions.add(description);
         }
         return commentDescriptions;
     }
 
-    private int parseOneDescription(String str, CommentDescription description, int start) {
-        int end = start = skipWhiteSpace(str, start);
-        if (isTerminate(str, start)) {
-            return str.length();
+    private void parseOneDescription(String str, CommentDescription description, int i) {
+        if (StringUtils.isBlank(str)) {
+            return;
         }
-
-        for (; end < str.length(); ++end) {
-            char ch = str.charAt(end);
-            if (ch == '[') {
-                break;
+        String identifier = getOneIdentifier(str, i, startCharSet);
+        description.setFunc(FunctionEnum.findByName(identifier));
+        i += identifier.length() + 1;
+        while (i < str.length() && str.charAt(i) != terminateChar) {
+            String name = getOneIdentifier(str, i, startCharSet);
+            if (StringUtils.isBlank(name)) {
+                i++;
+                continue;
             }
+            i += name.length() + 1;
+            String value = getOneIdentifier(str, i, endCharSet);
+            if (StringUtils.isBlank(value)) {
+                i++;
+                continue;
+            }
+            i += value.length() + 1;
+            System.out.println("==" + name);
+            System.out.println(value);
+            set(description, name, value);
         }
-        String funcName = str.substring(start, end).trim();
-        FunctionEnum functionEnum = FunctionEnum.findByName(funcName);
-        if (functionEnum == null) {
-            return -1;
-        }
-        description.setFunc(functionEnum);
-        start = end = end + 1;
-        if (isTerminate(str, start)) {
-            return str.length();
-        }
-        end = skipWhiteSpace(str, end);
-        if (isTerminate(str, start)) {
-            return -1;
-        }
-        if (str.charAt(end) == ']') {
-            return str.length();
-        }
-        start = end = end + 1;
-        while (!isTerminate(str, end)) {
-            while (end < str.length() && str.charAt(end) != '(') {
-                end++;
-            }
-            if (isTerminate(str, end)) {
-                return -1;
-            }
-            String func = str.substring(start, end).trim();
-            start = end = end + 1;
-            while (end < str.length() && str.charAt(end) != ')') {
-                end++;
-            }
-            if (isTerminate(str, end)) {
-                return -1;
-            }
-            String identifier = str.substring(start, end);
-            if ("type".equals(func)) {
-                description.setType(identifier);
-            } else if ("name".equals(func)) {
-                description.setName(identifier);
-            }
-            start = end = end + 1;
-            if (isTerminate(str, end)) {
-                return -1;
-            }
-
-            if (str.charAt(end) == ']') {
-                return start + 1;
-            }
-
-            if (str.charAt(end) == ',') {
-                start = end = end + 1;
-            }
-        }
-        return str.length();
     }
 
-    private int skipWhiteSpace(String str, int start) {
-        while (start < str.length() && Character.isWhitespace(str.charAt(start))) {
-            start++;
-        }
-        return Math.min(start, str.length());
+    private String getOneIdentifier(String str, int cur, Set<Character> utilChar) {
+        int start = cur;
+        while (cur < str.length() && !utilChar.contains(str.charAt(cur++))) { }
+        return str.substring(start, cur == str.length() ? cur : cur - 1);
     }
 
-    private boolean isTerminate(String str, int start) {
-        return str.length() <= start;
+    private void set(Object bean, String name, String value) {
+        try {
+            BeanUtils.setProperty(bean, name, value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -11,10 +11,12 @@ import lombok.Setter;
 @Getter
 public class Config {
 
-    private String basePkg;
+    private String basePkg = "";
 
     private String basePath = "/";
 
     private String prefix = "";
+
+    private String profile = "";
 
 }

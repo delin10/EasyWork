@@ -61,7 +61,7 @@ public class Utils {
                 .filter(f -> !f.exists())
                 .ifPresent(File::mkdirs);
 
-        try (OutputStream out = Files.newOutputStream(pth, StandardOpenOption.CREATE)) {
+        try (OutputStream out = Files.newOutputStream(pth, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
             IOUtils.write(text, out, StandardCharsets.UTF_8);
             return true;
         } catch (IOException e) {

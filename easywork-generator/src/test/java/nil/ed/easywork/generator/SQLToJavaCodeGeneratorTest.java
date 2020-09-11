@@ -2,7 +2,10 @@ package nil.ed.easywork.generator;
 
 import nil.ed.easywork.generator.config.Config;
 import nil.ed.easywork.generator.context.TemplateContext;
+import nil.ed.easywork.generator.generator.SQLToJavaCodeGenerator;
 import nil.ed.easywork.generator.sql.SQLFileProcessor;
+import nil.ed.easywork.generator.type.impl.AdsTypeMapper;
+import nil.ed.easywork.generator.type.impl.MyBatisColTypeTransformer;
 import nil.ed.easywork.template.FreeMarkerTemplateEngineAdapter;
 import nil.ed.easywork.template.ITemplateEngineAdapter;
 import nil.ed.easywork.template.ThymeLeafTemplateEngineAdapter;
@@ -15,7 +18,8 @@ import org.thymeleaf.templateresolver.StringTemplateResolver;
 
 public class SQLToJavaCodeGeneratorTest {
 
-    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/operation_log");
+    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/ad_marketing_case.sql",
+            new AdsTypeMapper(), new MyBatisColTypeTransformer());
 
     @Test
     public void generate() {
@@ -24,11 +28,17 @@ public class SQLToJavaCodeGeneratorTest {
         resolver.setTemplateMode(TemplateMode.TEXT);
         engine.setTemplateResolver(resolver);
         ITemplateEngineAdapter<IContext> adapter = new ThymeLeafTemplateEngineAdapter(engine);
-
-        TemplateContext context = new TemplateContext(ClasspathFileUtils.getClassPath("/tpl"));
         Config config = new Config();
-        config.setBasePkg("com.kuaikan.ads.kyle.operation.log");
-        config.setBasePath("/Users/admin/delin/generated");
+//        String basePkg = "com.kuaikan.ads.kyle.operation.log";
+//        String basePkg = "com.kuaikan.ads.kyle.account.reserved";
+        String basePkg = "com.kuaikan.ads.kyle.ad";
+        String basePath = "/Users/admin/delin/generated/market_case";
+        config.setBasePkg(basePkg);
+        config.setBasePath(basePath);
+        config.setPrefix("");
+        config.setProfile("kyle");
+        TemplateContext context = new TemplateContext(ClasspathFileUtils.getClassPath("/tpl/" + config.getProfile()));
+
         SQLToJavaCodeGenerator generator = new SQLToJavaCodeGenerator(config, new FreeMarkerTemplateEngineAdapter(), processor);
         generator.generate(context);
     }

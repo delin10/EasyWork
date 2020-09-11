@@ -35,7 +35,7 @@ public enum FunctionEnum {
     }
 
     public static FunctionEnum findByName(String name) {
-        return map.get(name);
+        return map.get(name.toLowerCase());
     }
 
 }
