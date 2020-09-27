@@ -26,7 +26,7 @@ easywork-util：工具类
 
 [v] 根据vo和entity生成parse和toEntity方法
 
-[.] 变量名生成工具：使用百度翻译、Google翻译、有道翻译
+[v] 变量名生成工具：使用百度翻译、Google翻译、有道翻译
 
 [ ] 根据JSON生成JavaBean对象
 
