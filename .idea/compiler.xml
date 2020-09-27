@@ -11,6 +11,7 @@
         <module name="easywork-comment-parser" />
         <module name="easywork-common-dependency" />
         <module name="easywork-template-engin" />
+        <module name="easywork-script-engine" />
         <module name="easywork-util" />
         <module name="easywork-sql" />
         <module name="easywork-generator" />
