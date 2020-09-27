@@ -1,7 +1,6 @@
 package nil.ed.easywork.generator.sql;
 
 import nil.ed.easywork.generator.sql.obj.TableDetails;
-import nil.ed.easywork.sql.obj.BaseObj;
 
 import java.util.List;
 

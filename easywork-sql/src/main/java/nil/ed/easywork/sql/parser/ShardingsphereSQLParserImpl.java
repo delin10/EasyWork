@@ -2,9 +2,9 @@ package nil.ed.easywork.sql.parser;
 
 import lombok.Getter;
 import nil.ed.easywork.sql.enums.DbType;
-import nil.ed.easywork.sql.obj.BaseObj;
+import nil.ed.easywork.sql.obj.BaseSchemaObj;
 import nil.ed.easywork.sql.obj.ColumnField;
-import nil.ed.easywork.sql.obj.CreateTableObj;
+import nil.ed.easywork.sql.obj.CreateTableSchemaObj;
 import org.apache.shardingsphere.sql.parser.SQLParserEngineFactory;
 import org.apache.shardingsphere.sql.parser.sql.segment.ddl.column.ColumnDefinitionSegment;
 import org.apache.shardingsphere.sql.parser.sql.segment.dml.column.ColumnSegment;
@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
  * @author delin10
  * @since 2020/5/19
  **/
+@Deprecated
 public class ShardingsphereSQLParserImpl implements ISQLParser {
 
     @Getter
@@ -34,13 +35,13 @@ public class ShardingsphereSQLParserImpl implements ISQLParser {
     }
 
     @Override
-    public BaseObj parse(String sql) {
+    public BaseSchemaObj parse(String sql) {
 
         SQLStatement actual = SQLParserEngineFactory.getSQLParserEngine(dbType.getName()).parse(sql, false);
         if (actual instanceof CreateTableStatement) {
             CreateTableStatement createTableStatement = (CreateTableStatement) actual;
             String tableName = createTableStatement.getTable().getTableName().getIdentifier().getValue();
-            CreateTableObj tableObj = new CreateTableObj(tableName);
+            CreateTableSchemaObj tableObj = new CreateTableSchemaObj(tableName);
             Set<String> primaryKeys = new HashSet<>();
             createTableStatement.getConstraintDefinitions().forEach(cd -> {
                 if (!cd.getPrimaryKeyColumns().isEmpty()) {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>Easywork</artifactId>
+        <groupId>nil.ed.easywork</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>easywork-script-engine</artifactId>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>nil.ed.easywork.dependency</groupId>
+            <artifactId>easywork-common-dependency</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nil.ed.easywork.util</groupId>
+            <artifactId>easywork-util</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -16,6 +16,7 @@
         <module>easywork-template-engin</module>
         <module>easywork-generator</module>
         <module>easywork-util</module>
+        <module>easywork-script-engine</module>
     </modules>
 
     <properties>

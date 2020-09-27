@@ -22,7 +22,8 @@ public enum FunctionEnum {
     LIST("list"),
     SEARCH("search"),
     UPDATE("update"),
-    VO("vo");
+    VO("vo"),
+    ENUM("enum");
     private String name;
 
     private static final Map<String, FunctionEnum> map = new HashMap<>(8, 1);

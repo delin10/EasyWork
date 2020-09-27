@@ -3,7 +3,7 @@ package nil.ed.easywork.generator.sql.obj;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import nil.ed.easywork.sql.obj.CreateTableObj;
+import nil.ed.easywork.sql.obj.CreateTableSchemaObj;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @ToString
 public class TableDetails {
 
-    private CreateTableObj tableObj;
+    private CreateTableSchemaObj tableObj;
 
     private List<ColumnDetails> columnDetails;
 

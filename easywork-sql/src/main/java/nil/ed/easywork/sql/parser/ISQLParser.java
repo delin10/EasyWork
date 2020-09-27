@@ -1,6 +1,6 @@
 package nil.ed.easywork.sql.parser;
 
-import nil.ed.easywork.sql.obj.BaseObj;
+import nil.ed.easywork.sql.obj.BaseSchemaObj;
 
 /**
  * @author delin10
@@ -13,6 +13,6 @@ public interface ISQLParser {
      * @param sql SQL语句
      * @return 结果
      */
-    BaseObj parse(String sql);
+    BaseSchemaObj parse(String sql);
 
 }

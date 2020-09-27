@@ -18,7 +18,7 @@ import org.thymeleaf.templateresolver.StringTemplateResolver;
 
 public class SQLToJavaCodeGeneratorTest {
 
-    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/ad_marketing_case.sql",
+    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/ad_creative.sql",
             new AdsTypeMapper(), new MyBatisColTypeTransformer());
 
     @Test
@@ -32,7 +32,7 @@ public class SQLToJavaCodeGeneratorTest {
 //        String basePkg = "com.kuaikan.ads.kyle.operation.log";
 //        String basePkg = "com.kuaikan.ads.kyle.account.reserved";
         String basePkg = "com.kuaikan.ads.kyle.ad";
-        String basePath = "/Users/admin/delin/generated/market_case";
+        String basePath = "/Users/admin/delin/generated/creative";
         config.setBasePkg(basePkg);
         config.setBasePath(basePath);
         config.setPrefix("");

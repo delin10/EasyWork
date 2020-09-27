@@ -21,6 +21,7 @@ import nil.ed.easywork.template.ITemplateEngineAdapter;
 import nil.ed.easywork.util.Utils;
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -106,10 +107,9 @@ public class SQLToJavaCodeGenerator {
         builder.set(GenerateContextBuilder.FIELD_COL_MAP, fieldColMap);
         builder.set(GenerateContextBuilder.COL_FIELD_MAP, colFieldMap);
         builder.set(GenerateContextBuilder.FIELD_DESC, fieldDesc);
-        builder.set(GenerateContextBuilder.INSERT_FIELDS, fieldMap.get(FunctionEnum.INSERT));
-        builder.set(GenerateContextBuilder.LIST_FIELDS, fieldMap.get(FunctionEnum.LIST));
-        builder.set(GenerateContextBuilder.UPDATE_FIELDS, fieldMap.get(FunctionEnum.UPDATE));
-        builder.set(GenerateContextBuilder.SEARCH_FIELDS, fieldMap.get(FunctionEnum.SEARCH));
+        Arrays.stream(FunctionEnum.values()).forEach(f -> {
+                    builder.set(f.getName() + GenerateContextBuilder.FUNC_FIELDS_SUFFIX, fieldMap.get(f));
+                });
         return clazz;
     }
 

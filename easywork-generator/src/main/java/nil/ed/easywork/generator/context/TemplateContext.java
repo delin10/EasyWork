@@ -1,10 +1,12 @@
 package nil.ed.easywork.generator.context;
 
 import lombok.extern.slf4j.Slf4j;
+import nil.ed.easywork.generator.config.AbstractTemplateConfig;
 import nil.ed.easywork.util.Utils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.MutableTriple;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,6 +36,7 @@ public class TemplateContext {
     public static final String BIZ_ERROR_TYPE = "BIZ_ERROR_TYPE";
 
     private static final Map<String, MutableTriple<String, String, String>> TEMPLATE_CACHE = new HashMap<>();
+    private static final Map<String, AbstractTemplateConfig> TEMPLATE_CONFIG_CACHE = new HashMap<>();
 
     static {
         TEMPLATE_CACHE.put(ENTITY, MutableTriple.of("entity", "%sEntity.java",""));
@@ -62,7 +65,6 @@ public class TemplateContext {
     }
 
     public Map<String, MutableTriple<String, String, String>> getTemplateCache() {
-
         return TEMPLATE_CACHE;
     }
 

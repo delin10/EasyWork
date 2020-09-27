@@ -13,6 +13,25 @@
     <artifactId>easywork-sql</artifactId>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.24</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.druid/druid-sql -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.druid</groupId>-->
+<!--            <artifactId>druid-sql</artifactId>-->
+<!--            <version>0.19.0</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>shardingsphere-sql-parser-mysql</artifactId>

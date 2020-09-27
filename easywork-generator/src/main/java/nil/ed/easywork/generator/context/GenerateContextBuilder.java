@@ -1,8 +1,12 @@
 package nil.ed.easywork.generator.context;
 
+import nil.ed.easywork.generator.tools.Tool;
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,18 +22,18 @@ public class GenerateContextBuilder {
     public static final String PASCAL_TO_CAMEL = "pascalToCamel";
     public static final String ENTITY = "entity";
     public static final String TABLE = "table";
-    public static final String LIST_FIELDS = "listFields";
-    public static final String INSERT_FIELDS = "insertFields";
-    public static final String SEARCH_FIELDS = "searchFields";
-    public static final String UPDATE_FIELDS = "updateFields";
+    public static final String FUNC_FIELDS_SUFFIX = "Fields";
     public static final String FIELD_DESC = "fieldDescs";
     public static final String FIELD_COL_MAP = "fieldColMap";
     public static final String COL_FIELD_MAP = "colFieldMap";
     public static final String UTILS = "utils";
     public static final String ROOT = "root";
     public static final String ADDITIONAL = "additional";
+    public static final String CURRENT_IMPORTS = "imports";
 
     private Map<String, Object> context = new HashMap<>();
+
+    private List<Tool> toolList = new LinkedList<>();
 
 
     static {
@@ -49,8 +53,16 @@ public class GenerateContextBuilder {
         return this;
     }
 
+    public GenerateContextBuilder registerTool(Tool...tools) {
+        Collections.addAll(toolList, tools);
+        return this;
+    }
+
     public Map<String, Object> build() {
         context.put(UTILS, utils);
+        toolList.forEach(tool -> {
+            utils.put(tool.getName(), tool);
+        });
         return context;
     }
 

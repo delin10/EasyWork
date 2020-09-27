@@ -9,8 +9,9 @@ import nil.ed.easywork.generator.sql.obj.TableDetails;
 import nil.ed.easywork.generator.type.ColTypeTransformer;
 import nil.ed.easywork.generator.type.ITypeMapper;
 import nil.ed.easywork.sql.enums.DbType;
-import nil.ed.easywork.sql.obj.BaseObj;
-import nil.ed.easywork.sql.obj.CreateTableObj;
+import nil.ed.easywork.sql.obj.BaseSchemaObj;
+import nil.ed.easywork.sql.obj.CreateTableSchemaObj;
+import nil.ed.easywork.sql.parser.AliDruidSQLParserImpl;
 import nil.ed.easywork.sql.parser.ISQLParser;
 import nil.ed.easywork.sql.parser.ShardingsphereSQLParserImpl;
 import nil.ed.easywork.util.Utils;
@@ -56,7 +57,7 @@ public class SQLFileProcessor implements ISQLProcessor{
     }
 
     public SQLFileProcessor(String sqlPath, ITypeMapper mapper, ColTypeTransformer typeTransformer) {
-        this(sqlPath, new ShardingsphereSQLParserImpl(DbType.MYSQL), new CommentDescriptionParser(), mapper, typeTransformer);
+        this(sqlPath, new AliDruidSQLParserImpl(), new CommentDescriptionParser(), mapper, typeTransformer);
     }
 
     @Override
@@ -67,10 +68,10 @@ public class SQLFileProcessor implements ISQLProcessor{
         }
         List<TableDetails> tablesObjs = new LinkedList<>();
         ddls.forEach(ddl -> {
-            BaseObj obj = sqlParser.parse(ddl);
-            if (obj instanceof CreateTableObj) {
+            BaseSchemaObj obj = sqlParser.parse(ddl);
+            if (obj instanceof CreateTableSchemaObj) {
                 List<ColumnDetails> columnDetails = new LinkedList<>();
-                CreateTableObj tableObj = (CreateTableObj) obj;
+                CreateTableSchemaObj tableObj = (CreateTableSchemaObj) obj;
                 tableObj.getFields().forEach(columnField -> {
                     columnField.setType(transformType(columnField.getType()));
                     ColumnDetails field = new ColumnDetails(columnField);
