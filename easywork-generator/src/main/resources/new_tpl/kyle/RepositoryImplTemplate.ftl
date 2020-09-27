@@ -46,7 +46,7 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
     @Override
     public List<${entity.name}> getList(${entity.name}QueryCondition condition) {
         <#if hasAnyCollection(listFields)>
-        if (CommonCollectionUtils.anySizeEmpty(<#list listFields as field><#if isCollection(fieldDescs[field+"-list"].name)>condition.get${utils.pascalToCamel.trans(fieldDescs[field+"-list"].name)}()<#sep>, </#sep></#if></#list>)) {
+        if (CommonCollectionUtils.anySizeEmpty(<#list listFields as field><#if isCollection(fieldDescs[field+"-list"].name)>condition.get${fieldDescs[field+"-list"].name?capitalize}()<#sep>, </#sep></#if></#list>)) {
             return Collections.emptyList();
         }
 
@@ -66,7 +66,7 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
     }
 
     @Override
-    public ${entity.name} getOneById(Long id) {
+    public ${entity.name} getOne(Long id) {
         return ${entityCamelName}Mapper.getOne(id);
     }
 

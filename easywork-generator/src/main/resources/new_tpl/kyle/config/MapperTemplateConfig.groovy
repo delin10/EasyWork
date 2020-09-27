@@ -7,7 +7,7 @@ class MapperTemplateConfig extends AbstractOutTemplateConfig {
 
     @Override
     String getFile(Map<String, Object> context, String template, BaseClass entity, Config config) {
-        return "/mapper/${entity.getName()}Mapper.java"
+        return "/dao/${entity.getName()}Mapper.java"
     }
 
 }

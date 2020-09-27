@@ -37,10 +37,10 @@ public interface ${entity.name}Service {
 
    /**
     * 根据id查询记录.
-    * @param condition 条件.
+    * @param id 条件.
     * @return 结果.
     */
-    ${entity.name} getById(Long id);
+    ${entity.name} get${entity.name}(Long id);
 
 }
 <#noparse></#noparse>

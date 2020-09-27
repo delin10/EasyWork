@@ -43,7 +43,7 @@ public interface ${entity.name}Repo {
 
     /**
      * 根据id查询记录.
-     * @param condition 条件.
+     * @param id 条件.
      * @return 结果.
      */
     ${entity.name} getOneById(Long id);

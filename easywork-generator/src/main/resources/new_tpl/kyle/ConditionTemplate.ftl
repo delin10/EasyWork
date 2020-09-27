@@ -35,7 +35,7 @@ public class ${entity.name}QueryCondition extends PageCondition {
 </#if>
 <#list listFields as field>
     <#if isCollection(fieldDescs[field+"-list"].name)>
-    public ${entity.name}QueryCondition set${removeCollectionFlag(fieldDescs[field+"-list"].name)}(${getGeneric(fieldDescs[field+"-list"].type)} ${removeCollectionFlag(fieldDescs[field+"-list"].name)}) {
+    public ${entity.name}QueryCondition set${utils.removeCollectionFlag(fieldDescs[field+"-list"].name)?capitalize}(${getGeneric(fieldDescs[field+"-list"].type)} ${removeCollectionFlag(fieldDescs[field+"-list"].name)}) {
         if (${removeCollectionFlag(fieldDescs[field+"-list"].name)} == null) {
             this.${fieldDescs[field+"-list"].name} = null;
         } else {

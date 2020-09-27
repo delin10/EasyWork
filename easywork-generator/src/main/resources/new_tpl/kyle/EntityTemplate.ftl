@@ -6,6 +6,7 @@ package ${root.basePkg}.entity;
 <@JavaImportIn value="${root.basePkg}.model.${entity.name}"/>
 <@JavaImportIn value="lombok.Data"/>
 <@JavaImportIn value="lombok.experimental.Accessors"/>
+<@JavaImportIn value="org.springframework.beans.BeanUtils"/>
 <@JavaImportOut/>
 
 /**

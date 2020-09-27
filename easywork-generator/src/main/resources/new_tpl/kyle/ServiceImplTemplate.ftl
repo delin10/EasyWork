@@ -7,6 +7,8 @@ package ${root.basePkg}.repository;
 <@JavaImportIn value="${root.basePkg}.exception.${entity.name}BizErrorType"/>
 <@JavaImportIn value="${root.basePkg}.repository.${entity.name}Repo"/>
 <@JavaImportIn value="${root.basePkg}.service.${entity.name}Service"/>
+<@JavaImportIn value="${root.basePkg}.converter.${entity.name}Converter"/>
+<@JavaImportIn value="${root.basePkg}.condition.${entity.name}QueryCondition"/>
 <@JavaImportIn value="com.kuaikan.ads.kyle.common.exception.BizException"/>
 <@JavaImportIn value="com.kuaikan.ads.kyle.common.page.PageResult"/>
 <@JavaImportIn value="com.kuaikan.ads.kyle.common.utils.PageUtils"/>
@@ -27,7 +29,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 
     @Override
     public void add${entity.name}(${entity.name}Entity ${entityCamelName}Entity) throws BizException {
-        long ret = ${entityCamelName}Repo.insert(${entity.name}Converter.to${entity.name}(${entity.name}Entity));
+        long ret = ${entityCamelName}Repo.insert(${entity.name}Converter.to${entity.name}(${entityCamelName}Entity));
         if (ret <= 0) {
             log.error("Failed to insert {}", ${entityCamelName}Entity);
             throw new BizException(${entity.name}BizErrorType.INSERT_FAILED);
@@ -36,7 +38,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 
     @Override
     public void update${entity.name}(${entity.name}Entity ${entityCamelName}Entity)  throws BizException {
-        long ret = ${entityCamelName}Repo.update(${entity.name}Converter.to${entity.name}(${entity.name}Entity));
+        long ret = ${entityCamelName}Repo.update(${entity.name}Converter.to${entity.name}(${entityCamelName}Entity));
         if (ret <= 0) {
             log.error("Failed to update {}", ${entityCamelName}Entity);
             throw new BizException(${entity.name}BizErrorType.UPDATE_FAILED);
@@ -53,11 +55,11 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
     }
 
     @Override
-    public ${entity.name}Entity getById(Long id) {
+    public ${entity.name}Entity get${entity.name}(Long id) {
         log.debug("Start to invoke getById with params: id = {}", id);
         ${entity.name} result = ${entityCamelName}Repo.getOne(id);
         log.debug("Succeed to invoke getById with result: {}", result);
-        return {entity.name}Converter.to${entity.name}Entity(result);
+        return ${entity.name}Converter.to${entity.name}Entity(result);
     }
 
 }

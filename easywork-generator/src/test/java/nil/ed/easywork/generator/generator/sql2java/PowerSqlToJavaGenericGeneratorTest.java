@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class PowerSqlToJavaGenericGeneratorTest {
 
-    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/ad_creative.sql",
+    private SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/ad_landing_url.sql",
             new AdsTypeMapper(), new MyBatisColTypeTransformer());
 
     @Test
@@ -19,8 +19,9 @@ public class PowerSqlToJavaGenericGeneratorTest {
         Config config = new Config();
 //        String basePkg = "com.kuaikan.ads.kyle.operation.log";
 //        String basePkg = "com.kuaikan.ads.kyle.account.reserved";
+//        String basePkg = "com.kuaikan.ads.kyle.ad";
         String basePkg = "com.kuaikan.ads.kyle.ad";
-        String basePath = "/Users/admin/delin/generated/test_creative";
+        String basePath = "/Users/admin/delin/generated/ad_landing_url";
         config.setBasePkg(basePkg);
         config.setBasePath(basePath);
         config.setPrefix("");

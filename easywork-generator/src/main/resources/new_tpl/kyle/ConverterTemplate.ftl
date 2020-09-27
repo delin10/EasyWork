@@ -1,7 +1,8 @@
 ==>>/new_tpl/kyle/config/ConverterTemplateConfig.groovy
-package ${root.basePkg}.entity;
+package ${root.basePkg}.converter;
 <#assign entityCamelName="${utils.pascalToCamel.trans(entity.name)}">
 
+<@JavaImportIn value="${root.basePkg}.entity.${entity.name}Entity"/>
 <@JavaImportIn value="${root.basePkg}.model.${entity.name}"/>
 <@JavaImportIn value="org.springframework.beans.BeanUtils"/>
 <@JavaImportOut/>

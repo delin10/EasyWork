@@ -47,7 +47,7 @@ public interface ${entity.name}Mapper {
      * @param id id.
      * @return 对象.
      **/
-    ${entity.name} getOne(Long id);
+    ${entity.name} getOne(@Param("id") Long id);
 
 }
 <#noparse></#noparse>
