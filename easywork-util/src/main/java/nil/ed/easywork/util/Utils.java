@@ -30,6 +30,14 @@ public class Utils {
         }
     }
 
+    public static void listLines(String file, Consumer<String> consumer, Charset charset) throws IOException {
+        File f = new File(file);
+        try (InputStream in = Files.newInputStream(Paths.get(file))) {
+            List<String> lines = IOUtils.readLines(in, charset);
+            lines.forEach(consumer);
+        }
+    }
+
     public static void listFiles(String baseDir, Consumer<File> consumer) throws FileNotFoundException {
         listFiles(baseDir, f -> true, consumer);
     }

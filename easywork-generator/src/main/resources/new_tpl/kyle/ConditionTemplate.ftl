@@ -3,11 +3,13 @@ package ${root.basePkg}.condition;
 <#function isCollection name>
     <#return name?ends_with("Set") || name?ends_with("List") || name?ends_with("Collection")>
 </#function>
-<#function removeCollectionFlag name>
-    <#return name?replace("Set", "")?replace("List", "")?replace("Collection", "")>
-</#function>
-<#function getGeneric name>
-    <#return utils.TYPE_TOOL.getGenericType(name)>
+<#function hasAnyCollection fields>
+    <#list listFields as field>
+        <#if isCollection(fieldDescs[field+"-list"].name)>
+            <#return true>
+        </#if>
+    </#list>
+    <#return false>
 </#function>
 
 <@JavaImportIn value="com.kuaikan.ads.kyle.common.page.PageCondition"/>
@@ -25,26 +27,30 @@ package ${root.basePkg}.condition;
 @Accessors(chain = true)
 public class ${entity.name}QueryCondition extends PageCondition {
 
-<#list listFields as field>
-    private ${fieldDescs[field+"-list"].type} ${fieldDescs[field+"-list"].name};
+<#list processedListFields as field>
+    private ${field.type} ${field.realName};
 
 </#list>
 <#if searchFields?size gt 0>
     private String query;
 
 </#if>
-<#list listFields as field>
-    <#if isCollection(fieldDescs[field+"-list"].name)>
-    public ${entity.name}QueryCondition set${utils.removeCollectionFlag(fieldDescs[field+"-list"].name)?capitalize}(${getGeneric(fieldDescs[field+"-list"].type)} ${removeCollectionFlag(fieldDescs[field+"-list"].name)}) {
-        if (${removeCollectionFlag(fieldDescs[field+"-list"].name)} == null) {
-            this.${fieldDescs[field+"-list"].name} = null;
-        } else {
-            this.${fieldDescs[field+"-list"].name} = Collections.singletonList(${removeCollectionFlag(fieldDescs[field+"-list"].name)});
+<#list processedListFields as field>
+    <#if field.isCollectionSuffix>
+    public ${entity.name}QueryCondition set${field.cutRealName?capitalize}(${field.generic} ${field.cutRealName}) {
+        if (${field.cutRealName} != null) {
+            this.${field.realName} = Collections.singletonList(${field.cutRealName});
         }
         return this;
     }
 
     </#if>
 </#list>
+<#if hasAnyCollection(listFields)>
+    public boolean anySizeEmpty() {
+        return CommonCollectionUtils.anySizeEmpty(<#list listFields as field><#if isCollection(fieldDescs[field+"-list"].name)>condition.get${utils.pascalToCamel.trans(fieldDescs[field+"-list"].name)}()<#sep>, </#sep></#if></#list>));
+    }
+
+</#if>
 }
 <#noparse></#noparse>

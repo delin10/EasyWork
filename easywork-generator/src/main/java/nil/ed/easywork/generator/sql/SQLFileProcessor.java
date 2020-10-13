@@ -8,12 +8,10 @@ import nil.ed.easywork.generator.sql.obj.ColumnDetails;
 import nil.ed.easywork.generator.sql.obj.TableDetails;
 import nil.ed.easywork.generator.type.ColTypeTransformer;
 import nil.ed.easywork.generator.type.ITypeMapper;
-import nil.ed.easywork.sql.enums.DbType;
 import nil.ed.easywork.sql.obj.BaseSchemaObj;
 import nil.ed.easywork.sql.obj.CreateTableSchemaObj;
 import nil.ed.easywork.sql.parser.AliDruidSQLParserImpl;
 import nil.ed.easywork.sql.parser.ISQLParser;
-import nil.ed.easywork.sql.parser.ShardingsphereSQLParserImpl;
 import nil.ed.easywork.util.Utils;
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton;
 import org.apache.commons.collections4.CollectionUtils;
@@ -21,7 +19,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -33,15 +36,15 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SQLFileProcessor implements ISQLProcessor{
 
-    private String sqlPath;
+    private final String sqlPath;
 
-    private ISQLParser sqlParser;
+    private final ISQLParser sqlParser;
 
-    private CommentDescriptionParser commentDescriptionParser;
+    private final CommentDescriptionParser commentDescriptionParser;
 
-    private ITypeMapper mapper;
+    private final ITypeMapper mapper;
 
-    private ColTypeTransformer typeTransformer;
+    private final ColTypeTransformer typeTransformer;
 
     public SQLFileProcessor(String sqlPath, ISQLParser sqlParser, CommentDescriptionParser commentDescriptionParser,
                             ITypeMapper mapper, ColTypeTransformer typeTransformer) {
@@ -95,7 +98,11 @@ public class SQLFileProcessor implements ISQLProcessor{
                     columnField.setComment(getRealComment(columnField.getComment()));
                     columnDetails.add(field);
                 });
-                TableDetails tableDetails = new TableDetails(tableObj, columnDetails);
+                String name = getCommentDescription(tableObj.getComment());
+                if (StringUtils.isBlank(name)) {
+                    name = tableObj.getName().replaceAll("_", " ");
+                }
+                TableDetails tableDetails = new TableDetails(name, tableObj, columnDetails, getRealComment(tableObj.getComment()));
                 tablesObjs.add(tableDetails);
             }
         });
@@ -133,7 +140,7 @@ public class SQLFileProcessor implements ISQLProcessor{
         }
 
         Matcher matcher = REGEX_PATTERN.matcher(comment);
-        if (matcher.matches()) {
+        if (matcher.find()) {
             return matcher.group(1);
         }
         return null;
@@ -151,4 +158,5 @@ public class SQLFileProcessor implements ISQLProcessor{
         }
         return Collections.emptyList();
     }
+
 }

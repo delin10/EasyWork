@@ -3,6 +3,7 @@ package nil.ed.easywork.generator.singleton;
 import nil.ed.easywork.generator.freemarker.JavaImportDirectiveTemplateModel;
 import nil.ed.easywork.generator.freemarker.JavaImportWriteDirectiveTemplateModel;
 import nil.ed.easywork.generator.freemarker.JavaImportsDirectiveTemplateModel;
+import nil.ed.easywork.generator.tools.TypeTool;
 import nil.ed.easywork.template.FreeMarkerTemplateEngineAdapter;
 
 import java.util.HashMap;
@@ -14,6 +15,8 @@ import java.util.Map;
 public class BeanContext {
 
     public static final FreeMarkerTemplateEngineAdapter FREE_MARKER_TEMPLATE_ENGINE = new FreeMarkerTemplateEngineAdapter();
+
+    public static final TypeTool TYPE_TOOL = new TypeTool();
 
     static {
         Map<String, Object> vars = new HashMap<>();

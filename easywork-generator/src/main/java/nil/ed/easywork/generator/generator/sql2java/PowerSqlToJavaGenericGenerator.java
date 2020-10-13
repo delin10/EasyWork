@@ -65,7 +65,7 @@ public class PowerSqlToJavaGenericGenerator {
                             config.doAction(cxt, config.getTemplateText(), this.config);
                             cxt.remove(GenerateContextBuilder.CURRENT_IMPORTS);
                         } catch (Exception e) {
-                            log.error("Failed to render template {}, config {}", k, config);
+                            log.error("Failed to render template {}, config {}", k, config, e);
                             System.exit(1);
                         }
                     });
@@ -107,7 +107,7 @@ public class PowerSqlToJavaGenericGenerator {
                 });
         CheckStyleImportSortUtils.sort(clazz.getImports());
         builder.set(GenerateContextBuilder.ENTITY, clazz);
-        builder.set(GenerateContextBuilder.TABLE, details.getTableObj());
+        builder.set(GenerateContextBuilder.TABLE, details);
         builder.set(GenerateContextBuilder.FIELD_COL_MAP, fieldColMap);
         builder.set(GenerateContextBuilder.COL_FIELD_MAP, colFieldMap);
         builder.set(GenerateContextBuilder.FIELD_DESC, fieldDesc);

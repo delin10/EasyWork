@@ -1,20 +1,5 @@
 ==>>/new_tpl/kyle/config/MapperXmlTemplateConfig.groovy
-<#assign idCol="${table.id.name}">
-<#assign idField="${colFieldMap[idCol].name}">
 <#assign modelFullName="${root.basePkg}.model.${entity.name}">
-<#function isCollection type>
-    <#return type?starts_with("Set") || type?starts_with("List") || type?starts_with("Collection")>
-</#function>
-
-<#function isContains list e>
-    ${e}
-    <#list list as item>
-        <#if item?starts_with(e) && item?length = e?length>
-            <#return true>
-        </#if>
-    </#list>
-    <#return false>
-</#function>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="${root.basePkg}.dao.${entity.name}Mapper">
@@ -25,7 +10,7 @@
     </resultMap>
 
     <sql id="TABLE_NAME">
-        `${table.name}`
+        `${table.tableObj.name}`
     </sql>
 
     <sql id="INSERT_COLS">
@@ -53,7 +38,7 @@
     </sql>
 
     <insert id="insert" parameterType="${modelFullName}" useGeneratedKeys="true"
-            keyProperty="${idField}">
+            keyProperty="id">
         insert into
         <include refid="TABLE_NAME"/>(<include refid="INSERT_COLS"/>)
         values(<include refid="INSERT_VALUES"/>)
@@ -61,7 +46,7 @@
 
     <sql id="WHERE_ID">
         <where>
-            `id` = '<#noparse>#{</#noparse>${idField}<#noparse>}</#noparse>'
+            `id` = <#noparse>#{</#noparse>id<#noparse>}</#noparse>
         </where>
     </sql>
 
@@ -73,28 +58,28 @@
                 `${fieldColMap[field.name].name}` = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse><#sep>,</#sep>
             </if>
             </#list>
-
         </set>
         <include refid="WHERE_ID"/>
     </update>
 
     <sql id="LIST_WHERE">
         <where>
-            <#list listFields as field>
-                <#if searchFields?seq_contains('${field}')>
+            <#if searchFields?size != 0>
             <if test="query !=null and query != ''">
-                and ${fieldColMap[field].name} like concat('%', <#noparse>#{</#noparse>query<#noparse>}</#noparse>, '%')
+            (<#list processedSearchFields as f><#if f.camelName = "id">`${f.col}`=<#noparse>#{</#noparse>query<#noparse>}</#noparse><#else>`${f.col}` like concat('%', <#noparse>#{</#noparse>query<#noparse>}</#noparse>, '%')</#if><#sep> or </#sep></#list>)
             </if>
-                <#elseif isCollection('${fieldDescs[field+"-list"].type}')>
-            <if test = "${fieldDescs[field+"-list"].name} != null">
-                and ${fieldDescs[field+"-list"].originName} in
-                <foreach collection="${fieldDescs[field+"-list"].name}" item="item" open="(" close=")" separator=",">
+            </#if>
+            <#list processedListFields as field>
+                <#if field.isCollectionSuffix>
+            <if test = "${field.realName} != null">
+                and `${field.col}` in
+                <foreach collection="${field.camelName}" item="item" open="(" close=")" separator=",">
                 <#noparse>#{</#noparse>item<#noparse>}</#noparse>
                 </foreach>
             </if>
                 <#else>
-            <if test="${field} != null">
-                and ${fieldColMap[field].name}=<#noparse>#{</#noparse>${field}<#noparse>}</#noparse>
+            <if test="${field.camelName} != null">
+                and ${field.col}=<#noparse>#{</#noparse>${field}<#noparse>}</#noparse>
             </if>
                 </#if>
             </#list>
@@ -133,7 +118,8 @@
     <select id="getOne" resultMap="resultMap">
         select <include refid="SELECT_COLS"/>
         from  <include refid="TABLE_NAME"/>
-        <include refid="WHERE_ID"/>
+        <include refid="LIST_WHERE"/>
+        limit 1
     </select>
 </mapper>
 <#noparse></#noparse>

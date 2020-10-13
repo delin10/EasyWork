@@ -7,6 +7,7 @@ package ${root.basePkg}.repository;
 <@JavaImportIn value="com.kuaikan.ads.kyle.common.exception.BizException"/>
 <@JavaImportIn value="com.kuaikan.ads.kyle.common.page.PageResult"/>
 <@JavaImportIn value="${root.basePkg}.entity.${entity.name}Entity"/>
+<@JavaImportIn value="java.util.List"/>
 <@JavaImportOut/>
 
 /**
@@ -15,32 +16,39 @@ package ${root.basePkg}.repository;
 public interface ${entity.name}Service {
 
     /**
-     * 更新实体.
-     * @param ${entityCamelName}Entity 更新对象.
+     * 新增${table.call}.
+     * @param ${entityCamelName}Entity ${table.call}.
      * @throws BizException 插入失败.
      */
     void add${entity.name}(${entity.name}Entity ${entityCamelName}Entity) throws BizException;
 
     /**
-     * 更新实体.
-     * @param ${entityCamelName}Entity 更新对象.
+     * 更新${table.call}.
+     * @param ${entityCamelName}Entity 更新${table.call}.
      * @throws BizException 更新失败.
      */
     void update${entity.name}(${entity.name}Entity ${entityCamelName}Entity) throws BizException;
 
     /**
-     * 根据条件查询列表.
+     * 根据条件查询${table.call}分页列表.
      * @param condition 条件.
-     * @return 结果.
+     * @return ${table.call}分页列表.
      */
     PageResult<${entity.name}Entity> get${entity.name}PageResult(${entity.name}QueryCondition condition);
 
-   /**
-    * 根据id查询记录.
-    * @param id 条件.
-    * @return 结果.
+    /**
+    * 根据条件查询${table.call}列表.
+    * @param condition 条件.
+    * @return ${table.call}列表.
     */
-    ${entity.name} get${entity.name}(Long id);
+    List<${entity.name}Entity> get${entity.name}List(${entity.name}QueryCondition condition);
+
+   /**
+    * 根据条件查询${table.call}记录.
+    * @param condition 条件.
+    * @return ${table.call}.
+    */
+    ${entity.name} get${entity.name}(${entity.name}QueryCondition condition);
 
 }
 <#noparse></#noparse>

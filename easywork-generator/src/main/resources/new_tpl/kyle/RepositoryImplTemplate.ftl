@@ -57,7 +57,7 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
     @Override
     public long count(${entity.name}QueryCondition condition) {
         <#if hasAnyCollection(listFields)>
-        if (CommonCollectionUtils.anySizeEmpty(<#list listFields as field><#if isCollection(fieldDescs[field+"-list"].name)>condition.get${utils.pascalToCamel.trans(fieldDescs[field+"-list"].name)}()<#sep>, </#sep></#if></#list>)) {
+        if (condition.anySizeEmpty()) {
             return Collections.emptyList();
         }
 
@@ -66,7 +66,7 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
     }
 
     @Override
-    public ${entity.name} getOne(Long id) {
+    public ${entity.name} getOne(${entity.name}QueryCondition condition) {
         return ${entityCamelName}Mapper.getOne(id);
     }
 

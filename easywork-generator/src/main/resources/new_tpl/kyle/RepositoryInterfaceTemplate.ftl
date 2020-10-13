@@ -14,39 +14,39 @@ package ${root.basePkg}.repository;
 public interface ${entity.name}Repo {
 
     /**
-     * 更新实体.
+     * 更新${table.call}.
+     * @param ${entityCamelName} 更新${table.call}.
+     * @return 影响行数.
+     */
+    int insert(${entity.name} ${entityCamelName});
+
+    /**
+     * 更新${table.call}.
      * @param ${entityCamelName} 更新对象.
      * @return 影响行数.
      */
-    long insert(${entity.name} ${entityCamelName});
+    int update(${entity.name} ${entityCamelName});
 
     /**
-     * 更新实体.
-     * @param ${entityCamelName} 更新对象.
-     * @return 影响行数.
-     */
-    long update(${entity.name} ${entityCamelName});
-
-    /**
-     * 根据条件查询列表.
+     * 根据条件查询${table.call}列表.
      * @param condition 条件.
-     * @return 结果.
+     * @return ${table.call}.
      */
     List<${entity.name}> getList(${entity.name}QueryCondition condition);
 
     /**
-     * 根据条件查询列表.
+     * 根据条件查询${table.call}数量.
      * @param condition 条件.
-     * @return 结果.
+     * @return ${table.call}.
      */
-    long count(${entity.name}QueryCondition condition);
+    int count(${entity.name}QueryCondition condition);
 
     /**
-     * 根据id查询记录.
-     * @param id 条件.
-     * @return 结果.
+     * 根据条件查询${table.call}.
+     * @param condition 条件.
+     * @return ${table.call}.
      */
-    ${entity.name} getOneById(Long id);
+    ${entity.name} getOne(${entity.name}QueryCondition condition);
 
 }
 <#noparse></#noparse>

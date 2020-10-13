@@ -16,8 +16,12 @@ import java.util.List;
 @ToString
 public class TableDetails {
 
-    private CreateTableSchemaObj tableObj;
+    private final String call;
 
-    private List<ColumnDetails> columnDetails;
+    private final CreateTableSchemaObj tableObj;
+
+    private final List<ColumnDetails> columnDetails;
+
+    private final String entityDesc;
 
 }

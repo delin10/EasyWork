@@ -12,7 +12,10 @@ package ${root.basePkg}.converter;
  */
 public class ${entity.name}Converter {
 
-    public ${entity.name} to${entity.name}(${entity.name}Entity entity) {
+    public static ${entity.name} to${entity.name}(${entity.name}Entity entity) {
+        if (entity == null) {
+            return null;
+        }
         ${entity.name} ${entityCamelName} = new ${entity.name}();
         BeanUtils.copyProperties(entity, ${entityCamelName});
         return ${entityCamelName};

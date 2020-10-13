@@ -15,6 +15,7 @@ package ${root.basePkg}.repository;
 <@JavaImportIn value="lombok.extern.slf4j.Slf4j"/>
 <@JavaImportIn value="org.springframework.stereotype.Service"/>
 <@JavaImportIn value="javax.annotation.Resource"/>
+<@JavaImportIn value="java.util.List"/>
 <@JavaImportOut/>
 
 /**
@@ -29,7 +30,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 
     @Override
     public void add${entity.name}(${entity.name}Entity ${entityCamelName}Entity) throws BizException {
-        long ret = ${entityCamelName}Repo.insert(${entity.name}Converter.to${entity.name}(${entityCamelName}Entity));
+        int ret = ${entityCamelName}Repo.insert(${entity.name}Converter.to${entity.name}(${entityCamelName}Entity));
         if (ret <= 0) {
             log.error("Failed to insert {}", ${entityCamelName}Entity);
             throw new BizException(${entity.name}BizErrorType.INSERT_FAILED);
@@ -38,7 +39,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 
     @Override
     public void update${entity.name}(${entity.name}Entity ${entityCamelName}Entity)  throws BizException {
-        long ret = ${entityCamelName}Repo.update(${entity.name}Converter.to${entity.name}(${entityCamelName}Entity));
+        int ret = ${entityCamelName}Repo.update(${entity.name}Converter.to${entity.name}(${entityCamelName}Entity));
         if (ret <= 0) {
             log.error("Failed to update {}", ${entityCamelName}Entity);
             throw new BizException(${entity.name}BizErrorType.UPDATE_FAILED);
@@ -48,9 +49,17 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
     @Override
     public PageResult<${entity.name}Entity> get${entity.name}PageResult(${entity.name}QueryCondition condition) {
         log.debug("Start to invoke get${entity.name}PageResult with params: condition = {}", condition);
-        PageResult<${entity.name}Entity> result = PageUtils.selectPageLong(condition, ${entityCamelName}Repo::getList,
+        PageResult<${entity.name}Entity> result = PageUtils.selectPageInt(condition, ${entityCamelName}Repo::getList,
             ${entityCamelName}Repo::count, ${entity.name}Converter::to${entity.name}Entity);
         log.debug("Succeed to invoke get${entity.name}PageResult with result: {}", result);
+        return result;
+    }
+
+    @Override
+    public List<${entity.name}Entity> get${entity.name}List(${entity.name}QueryCondition condition) {
+        log.debug("Start to invoke get${entity.name}List with params: condition = {}", condition);
+        List<${entity.name}Entity> result = ${entityCamelName}Repo.getList(condition);
+        log.debug("Succeed to invoke get${entity.name}List with result: {}", result);
         return result;
     }
 
