@@ -3,7 +3,7 @@ package new_tpl.kyle.config
 import nil.ed.easywork.comment.obj.CommentDescription
 import nil.ed.easywork.generator.config.AbstractTemplateConfig
 import nil.ed.easywork.generator.config.Config
-import nil.ed.easywork.generator.generator.sql2java.EnumsGenerator
+import nil.ed.easywork.generator.generator.enums.EnumsGenerator
 import nil.ed.easywork.util.Utils
 
 class TestTemplateConfig extends AbstractTemplateConfig {

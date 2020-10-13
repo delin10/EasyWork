@@ -1,8 +1,9 @@
-package nil.ed.easywork.generator.generator.sql2java;
+package nil.ed.easywork.generator.generator.enums;
 
 import nil.ed.easywork.comment.obj.CommentDescription;
 import nil.ed.easywork.generator.config.Config;
 import nil.ed.easywork.generator.context.GenerateContextBuilder;
+import nil.ed.easywork.generator.generator.sql2java.Sql2JavaGenerator;
 import nil.ed.easywork.generator.singleton.BeanContext;
 import org.apache.commons.collections4.CollectionUtils;
 

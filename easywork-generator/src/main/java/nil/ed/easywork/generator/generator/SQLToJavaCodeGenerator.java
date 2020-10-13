@@ -33,6 +33,7 @@ import java.util.Map;
  **/
 @Setter
 @Getter
+@Deprecated
 public class SQLToJavaCodeGenerator {
 
     private ITemplateEngineAdapter templateEngineAdapter;
