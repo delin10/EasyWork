@@ -15,7 +15,7 @@ target/
 .idea/
 
 # Package Files #
-*.jar
+[!tools].jar
 *.war
 *.nar
 *.ear
