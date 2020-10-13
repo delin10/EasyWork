@@ -70,13 +70,13 @@ public class CommentDescriptionParser {
         description.setFunc(FunctionEnum.findByName(identifier));
         i += identifier.length() + 1;
         while (i < str.length() && str.charAt(i) != terminateChar) {
-            String name = getOneIdentifier(str, i, startCharSet);
+            String name = getOneIdentifier(str, i, startCharSet).trim();
             if (StringUtils.isBlank(name)) {
                 i++;
                 continue;
             }
             i += name.length() + 1;
-            String value = getOneIdentifier(str, i, endCharSet);
+            String value = getOneIdentifier(str, i, endCharSet).trim();
             if (StringUtils.isBlank(value)) {
                 i++;
                 continue;
