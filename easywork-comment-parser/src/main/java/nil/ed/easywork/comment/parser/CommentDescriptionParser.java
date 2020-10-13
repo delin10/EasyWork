@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 注释解析器
+ * 注释DSL解析器
  * 语法： {{func[func1(identifier),func2(identifier)]&func[]}}
  * list[name(alias),type(String)]
  * enum[name(),enums(<ID0:id@desc><ID2:id2@desc>)]
