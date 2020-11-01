@@ -14,6 +14,12 @@ abstract class AbstractProcessListFieldTemplateConfig extends AbstractOutTemplat
     void doAction(Map<String, Object> context, String template, Config config) throws IOException {
         def fields = context.get(FunctionEnum.LIST.name + GenerateContextBuilder.FUNC_FIELDS_SUFFIX) as List<String>
         def descMap = context.get(GenerateContextBuilder.FIELD_DESC) as Map<String, CommentDescription>
+        def idDesc = new CommentDescription()
+        idDesc.setName("idSet")
+        idDesc.setOriginName("id")
+        idDesc.setFunc(FunctionEnum.LIST)
+        idDesc.setType("Set<Long>")
+        descMap.put("id-list", idDescTIMESTAMP)
         def listFieldValueList = new LinkedList<FieldValue>()
         fields.forEach(f -> {
             def v = new FieldValue()

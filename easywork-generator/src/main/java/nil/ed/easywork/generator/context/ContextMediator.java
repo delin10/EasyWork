@@ -4,6 +4,8 @@ import nil.ed.easywork.comment.enums.FunctionEnum;
 import nil.ed.easywork.source.obj.LineOutput;
 import nil.ed.easywork.generator.java.obj.entity.ModelField;
 import nil.ed.easywork.source.obj.struct.*;
+import nil.ed.easywork.source.obj.type.BaseClass;
+import nil.ed.easywork.source.obj.type.JavaType;
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton;
 import nil.ed.easywork.generator.sql.obj.TableDetails;
 import nil.ed.easywork.generator.type.impl.TypeMapper;
@@ -72,7 +74,7 @@ public class ContextMediator {
                     field.setPrimary(columnDetails.getField().isPrimary());
                     clazz.getFields().add(field);
                     if (!"java.lang".equals(type.getPkg())) {
-                        clazz.getImports().add(type.getFullyName());
+//                        clazz.getImports().add(type.getFullyName());
                     }
                 });
         return clazz;

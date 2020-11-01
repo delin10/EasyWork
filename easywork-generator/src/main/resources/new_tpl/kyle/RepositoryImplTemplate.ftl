@@ -34,31 +34,31 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
     private ${entity.name}Mapper ${entityCamelName}Mapper;
 
     @Override
-    public long insert(${entity.name} ${entityCamelName}) {
+    public int insert(${entity.name} ${entityCamelName}) {
         return ${entityCamelName}Mapper.insert(${entityCamelName});
     }
 
     @Override
-    public long update(${entity.name} ${entityCamelName}) {
+    public int update(${entity.name} ${entityCamelName}) {
         return ${entityCamelName}Mapper.update(${entityCamelName});
     }
 
     @Override
     public List<${entity.name}> getList(${entity.name}QueryCondition condition) {
         <#if hasAnyCollection(listFields)>
-        if (CommonCollectionUtils.anySizeEmpty(<#list listFields as field><#if isCollection(fieldDescs[field+"-list"].name)>condition.get${fieldDescs[field+"-list"].name?capitalize}()<#sep>, </#sep></#if></#list>)) {
-            return Collections.emptyList();
-        }
+            if (condition.anySizeEmpty()) {
+                return Collections.emptyList();
+            }
 
         </#if>
         return ${entityCamelName}Mapper.getList(condition);
     }
 
     @Override
-    public long count(${entity.name}QueryCondition condition) {
+    public int count(${entity.name}QueryCondition condition) {
         <#if hasAnyCollection(listFields)>
         if (condition.anySizeEmpty()) {
-            return Collections.emptyList();
+            return 0;
         }
 
         </#if>

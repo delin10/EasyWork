@@ -1,6 +1,6 @@
 package nil.ed.easywork.generator.java;
 
-import nil.ed.easywork.source.obj.struct.BaseClass;
+import nil.ed.easywork.source.obj.type.BaseClass;
 
 import java.util.List;
 

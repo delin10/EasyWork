@@ -1,7 +1,7 @@
 package nil.ed.easywork.generator.context;
 
 import lombok.ToString;
-import nil.ed.easywork.source.obj.struct.BaseClass;
+import nil.ed.easywork.source.obj.type.BaseClass;
 
 /**
  * @author delin10

@@ -14,8 +14,8 @@ import nil.ed.easywork.generator.tools.TypeTool;
 import nil.ed.easywork.generator.type.ITypeMapper;
 import nil.ed.easywork.generator.type.impl.AdsTypeMapper;
 import nil.ed.easywork.generator.util.sorter.CheckStyleImportSortUtils;
-import nil.ed.easywork.source.obj.struct.BaseClass;
-import nil.ed.easywork.source.obj.struct.JavaType;
+import nil.ed.easywork.source.obj.type.BaseClass;
+import nil.ed.easywork.source.obj.type.JavaType;
 import nil.ed.easywork.sql.obj.ColumnField;
 import nil.ed.easywork.template.ITemplateEngineAdapter;
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton;
@@ -95,7 +95,7 @@ public class PowerSqlToJavaGenericGenerator {
                     field.setPrimary(columnDetails.getField().isPrimary());
                     clazz.getFields().add(field);
                     if (!"java.lang".equals(type.getPkg())) {
-                        clazz.getImports().add(type.getFullyName());
+//                        clazz.getImports().add(type.getFullyName());
                     }
                     columnDetails.getDescriptionMap().forEach((func, desc) -> {
                         List<String> fields = fieldMap.get(func);
@@ -105,7 +105,7 @@ public class PowerSqlToJavaGenericGenerator {
                     fieldColMap.put(name, columnDetails.getField());
                     colFieldMap.put(columnDetails.getField().getName(), field);
                 });
-        CheckStyleImportSortUtils.sort(clazz.getImports());
+//        CheckStyleImportSortUtils.sort(clazz.getImports());
         builder.set(GenerateContextBuilder.ENTITY, clazz);
         builder.set(GenerateContextBuilder.TABLE, details);
         builder.set(GenerateContextBuilder.FIELD_COL_MAP, fieldColMap);

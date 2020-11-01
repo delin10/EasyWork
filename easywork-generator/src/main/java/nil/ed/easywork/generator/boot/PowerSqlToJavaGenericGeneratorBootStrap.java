@@ -14,7 +14,7 @@ import nil.ed.easywork.util.ClasspathFileUtils;
  */
 public class PowerSqlToJavaGenericGeneratorBootStrap {
 
-    private static SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/ad_material.sql",
+    private static SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/kyle_ad_effect_stat_tmp.sql",
             new AdsTypeMapper(), new MyBatisColTypeTransformer());
 
     public static void main(String[] args) {
@@ -22,8 +22,8 @@ public class PowerSqlToJavaGenericGeneratorBootStrap {
 //        String basePkg = "com.kuaikan.ads.kyle.operation.log";
 //        String basePkg = "com.kuaikan.ads.kyle.account.reserved";
 //        String basePkg = "com.kuaikan.ads.kyle.ad";
-        String basePkg = "com.kuaikan.ads.kyle.ad";
-        String basePath = "/Users/admin/delin/generated/ad_material";
+        String basePkg = "com.kuaikan.adsystem";
+        String basePath = "/Users/admin/delin/generated/kyle_ad_effect_stat_tmp";
         config.setBasePkg(basePkg);
         config.setBasePath(basePath);
         config.setPrefix("");

@@ -7,12 +7,10 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import lombok.SneakyThrows;
 import nil.ed.easywork.generator.context.GenerateContextBuilder;
-import nil.ed.easywork.source.obj.struct.BaseClass;
 import nil.ed.easywork.template.support.FreeMarkerSupport;
 import ognl.Ognl;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;

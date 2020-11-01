@@ -1,6 +1,6 @@
 package nil.ed.easywork.generator.type.impl;
 
-import nil.ed.easywork.source.obj.struct.JavaType;
+import nil.ed.easywork.source.obj.type.JavaType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

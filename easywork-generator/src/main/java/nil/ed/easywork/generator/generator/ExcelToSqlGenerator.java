@@ -44,21 +44,25 @@ public class ExcelToSqlGenerator {
         System.out.println(map);
         List<String> parentSqlList = new LinkedList<>();
         List<String> subSqlList = new LinkedList<>();
-        int id = 1;
+        long globalId = 1;
+        Map<String, Long> parentIdMap = new HashMap<>();
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-            parentSqlList.add(formatSql(0, entry.getKey()));
+            parentIdMap.put(entry.getKey(), globalId);
+            parentSqlList.add(formatSql(globalId++, 0, entry.getKey()));
+        }
+
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             List<String> subList = entry.getValue();
             for (String sub : subList) {
-                subSqlList.add(formatSql(id, sub));
+                subSqlList.add(formatSql(globalId++, parentIdMap.get(entry.getKey()), sub));
             }
-            id++;
         }
         Stream.concat(parentSqlList.stream(), subSqlList.stream()).forEach(System.out::println);
     }
 
-    private static String formatSql(long parentId, String name) {
-        return String.format("insert into `kyle_ad_category`(`parent_id`, `name`) values(%d, '%s');",
-                parentId, name);
+    private static String formatSql(long globalId, long parentId, String name) {
+        return String.format("insert into `kyle_ad_category`(`id`, `parent_id`, `name`) values(%d, %d, '%s');",
+                globalId, parentId, name);
     }
 
 }

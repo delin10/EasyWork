@@ -1,7 +1,7 @@
 package nil.ed.easywork.generator.generator;
 
 import com.sun.tools.javac.tree.JCTree;
-import nil.ed.easywork.source.obj.struct.BaseClass;
+import nil.ed.easywork.source.obj.type.BaseClass;
 import nil.ed.easywork.source.parser.JavaParser;
 import nil.ed.easywork.source.parser.JavacParserImpl;
 import nil.ed.easywork.source.parser.visitor.GenericScanner;

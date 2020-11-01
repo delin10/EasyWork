@@ -5,7 +5,7 @@ import lombok.Setter;
 import nil.ed.easywork.source.obj.Line;
 import nil.ed.easywork.source.obj.render.FieldRender;
 import nil.ed.easywork.source.obj.struct.BaseField;
-import nil.ed.easywork.source.obj.struct.JavaType;
+import nil.ed.easywork.source.obj.type.JavaType;
 
 import java.util.Collections;
 import java.util.LinkedList;

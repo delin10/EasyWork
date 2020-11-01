@@ -8,7 +8,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
-import nil.ed.easywork.source.obj.struct.JavaType;
+import nil.ed.easywork.source.obj.type.JavaType;
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton;
 
 import javax.lang.model.element.Modifier;

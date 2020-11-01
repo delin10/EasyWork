@@ -48,7 +48,7 @@ public interface ${entity.name}Service {
     * @param condition 条件.
     * @return ${table.call}.
     */
-    ${entity.name} get${entity.name}(${entity.name}QueryCondition condition);
+    ${entity.name}Entity get${entity.name}(${entity.name}QueryCondition condition);
 
 }
 <#noparse></#noparse>
