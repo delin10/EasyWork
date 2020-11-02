@@ -51,7 +51,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
         log.debug("Start to invoke get${entity.name}PageResult with params: condition = {}", condition);
         PageResult<${entity.name}Entity> result = PageUtils.selectPageInt(condition, ${entityCamelName}Repo::getList,
             ${entityCamelName}Repo::count, ${entity.name}Converter::to${entity.name}Entity);
-        log.debug("Succeed to invoke get${entity.name}PageResult with result: {}", result);
+        log.debug("Succeed to invoke get${entity.name}PageResult with result.size: {}", result.getList().size());
         return result;
     }
 
@@ -59,7 +59,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
     public List<${entity.name}Entity> get${entity.name}List(${entity.name}QueryCondition condition) {
         log.debug("Start to invoke get${entity.name}List with params: condition = {}", condition);
         List<${entity.name}Entity> result = ${entityCamelName}Repo.getList(condition);
-        log.debug("Succeed to invoke get${entity.name}List with result: {}", result);
+        log.debug("Succeed to invoke get${entity.name}List with result.size: {}", result.size());
         return result;
     }
 

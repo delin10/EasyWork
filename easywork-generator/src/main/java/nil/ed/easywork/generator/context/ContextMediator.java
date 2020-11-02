@@ -80,40 +80,6 @@ public class ContextMediator {
         return clazz;
     }
 
-    private BaseClass buildMapper(BaseClass entity, TableDetails details) {
-        BaseClass mapper = new BaseClass();
-        JavaType longType = new JavaType("java.lang.Long");
-        String camelName = NamingTranslatorSingleton.UNDERLINE_TO_CAMEL.trans(details.getTableObj().getName());
-        mapper.setName(entity.getName() + "Mapper");
-        BaseMethod insertMethod = new BaseMethod("insert", longType);
-        Param entityParam = new Param();
-        entityParam.setName(camelName);
-        entityParam.setType(new JavaType(entity.getFullyName()));
-        insertMethod.getParams().add(entityParam);
-        mapper.getMethods().add(insertMethod);
-
-        BaseMethod updateMethod = new BaseMethod("update", longType);
-        updateMethod.getParams().add(entityParam);
-        mapper.getMethods().add(updateMethod);
-
-        return mapper;
-    }
-
-    private BaseClass buildMapperClass(TableDetails details) {
-        String className = NamingTranslatorSingleton.UNDERLINE_TO_PASCAL.trans(processPrefix(details.getTableObj().getName()));
-        BaseClass clazz = new BaseClass();
-        clazz.setName(className);
-
-        details.getColumnDetails().forEach(col -> {
-            col.getDescriptionMap().forEach((func, desc) -> {
-                if (func == FunctionEnum.INSERT) {
-
-                }
-            });
-        });
-        return clazz;
-    }
-
     private BaseMethod buildInsertMethod(TableDetails details) {
         JavaType longType = new JavaType("java.lang.Long");
         BaseMethod method = new BaseMethod("insert", longType);

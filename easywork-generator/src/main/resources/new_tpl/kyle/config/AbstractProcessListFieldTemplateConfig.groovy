@@ -6,6 +6,7 @@ import nil.ed.easywork.generator.config.Config
 import nil.ed.easywork.generator.context.GenerateContextBuilder
 import nil.ed.easywork.generator.singleton.BeanContext
 import nil.ed.easywork.generator.util.FieldUtils
+import nil.ed.easywork.util.naming.NamingTranslatorSingleton
 
 abstract class AbstractProcessListFieldTemplateConfig extends AbstractOutTemplateConfig {
     final def PROCESSED_LIST_FIELD = "processedListFields";
@@ -19,7 +20,7 @@ abstract class AbstractProcessListFieldTemplateConfig extends AbstractOutTemplat
         idDesc.setOriginName("id")
         idDesc.setFunc(FunctionEnum.LIST)
         idDesc.setType("Set<Long>")
-        descMap.put("id-list", idDescTIMESTAMP)
+        descMap.put("id-list", idDesc)
         def listFieldValueList = new LinkedList<FieldValue>()
         fields.forEach(f -> {
             def v = new FieldValue()
@@ -31,6 +32,7 @@ abstract class AbstractProcessListFieldTemplateConfig extends AbstractOutTemplat
             v.type = desc.type
             v.generic = BeanContext.TYPE_TOOL.getGenericType(desc.type)
             v.col = desc.originName
+            v.pascalName = NamingTranslatorSingleton.CAMEL_TO_PASCAL.trans(v.camelName)
             listFieldValueList.add(v)
         })
         context.put(PROCESSED_LIST_FIELD, listFieldValueList)
@@ -39,6 +41,7 @@ abstract class AbstractProcessListFieldTemplateConfig extends AbstractOutTemplat
     }
 
     class FieldValue {
+        String pascalName
         String camelName
         String realName
         String cutRealName

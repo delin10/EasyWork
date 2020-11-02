@@ -13,10 +13,10 @@ package ${root.basePkg}.condition;
 </#function>
 
 <@JavaImportIn value="com.kuaikan.ads.kyle.common.page.PageCondition"/>
+<#if hasAnyCollection(listFields)><@JavaImportIn value="com.kuaikan.ads.kyle.common.utils.CommonCollectionUtils"/></#if>
 <@JavaImportIn value="lombok.Data"/>
 <@JavaImportIn value="lombok.experimental.Accessors"/>
-<@JavaImportIn value="java.util.Set"/>
-<@JavaImportIn value="java.util.List"/>
+<@JavaImportIn value="java.util.Collection"/>
 <@JavaImportIn value="java.util.Collections"/>
 <@JavaImportOut/>
 
@@ -37,7 +37,7 @@ public class ${entity.name}QueryCondition extends PageCondition {
 </#if>
 <#list processedListFields as field>
     <#if field.isCollectionSuffix>
-    public ${entity.name}QueryCondition set${field.cutRealName?capitalize}(${field.generic} ${field.cutRealName}) {
+    public ${entity.name}QueryCondition set${field.pascalName}(${field.generic} ${field.cutRealName}) {
         if (${field.cutRealName} != null) {
             this.${field.realName} = Collections.singletonList(${field.cutRealName});
         }

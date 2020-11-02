@@ -4,7 +4,7 @@ import nil.ed.easywork.generator.config.AbstractTemplateConfig
 import nil.ed.easywork.generator.config.Config
 import nil.ed.easywork.generator.context.GenerateContextBuilder
 import nil.ed.easywork.generator.generator.sql2java.DefaultSql2JavaGenerator
-import nil.ed.easywork.source.obj.struct.type.BaseClass
+import nil.ed.easywork.source.obj.type.BaseClass
 import nil.ed.easywork.util.Utils
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton
 

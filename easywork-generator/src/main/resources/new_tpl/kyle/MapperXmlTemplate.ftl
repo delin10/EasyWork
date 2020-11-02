@@ -65,7 +65,7 @@
     <sql id="LIST_WHERE">
         <where>
             <#if searchFields?size != 0>
-            <if test="query !=null and query != ''">
+            <if test="query != null and query != ''">
             (<#list processedSearchFields as f><#if f.camelName = "id">`${f.col}`=<#noparse>#{</#noparse>query<#noparse>}</#noparse><#else>`${f.col}` like concat('%', <#noparse>#{</#noparse>query<#noparse>}</#noparse>, '%')</#if><#sep> or </#sep></#list>)
             </if>
             </#if>
