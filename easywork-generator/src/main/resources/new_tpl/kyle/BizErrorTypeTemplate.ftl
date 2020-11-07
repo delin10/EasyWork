@@ -1,10 +1,7 @@
 ==>>/new_tpl/kyle/config/BizErrorTypeTemplateConfig.groovy
 package ${root.basePkg}.enums;
 
-<@JavaImportIn value="com.kuaikan.ads.kyle.common.exception.ErrorType"/>
-<@JavaImportIn value="lombok.Getter"/>
-<@JavaImportOut/>
-
+__IMPORTS__
 /**
 * @author easywork.
 */

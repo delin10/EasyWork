@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -43,6 +44,10 @@ public class FlowUtils {
             return Optional.of((T) o);
         }
         return Optional.empty();
+    }
+
+    public static <S, R> R notNullOrElse(S src, Function<S, R> mapper, R defaultValue) {
+        return Optional.ofNullable(src).map(mapper).orElse(defaultValue);
     }
 
 }

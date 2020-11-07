@@ -2,6 +2,7 @@ package nil.ed.easywork.generator.util.sorter;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Sets;
+import nil.ed.easywork.source.obj.type.ImportItem;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,19 +38,19 @@ public class CheckStyleImportSortUtils {
 
     }
 
-    public static void sort(List<String> ls) {
+    public static void sort(List<ImportItem> ls) {
         ls.sort((a, b) -> {
-            int result = Integer.compare(getPriority(a), getPriority(b));
+            int result = Integer.compare(getPriority(a.getContent()), getPriority(b.getContent()));
             if (result == 0) {
-                return MoreObjects.firstNonNull(a, "").compareTo(b);
+                return MoreObjects.firstNonNull(a.getContent(), "").compareTo(b.getContent());
             }
             return result;
         });
     }
 
-    public static Map<String, List<String>> sortAndClassify(List<String> ls) {
-        Map<String, List<String>> map = ls.stream()
-                .collect(Collectors.groupingBy(e -> isJavaParty(e) ? JAVA_PARTY : THIRD_PARTY));
+    public static Map<String, List<ImportItem>> sortAndClassify(List<ImportItem> ls) {
+        Map<String, List<ImportItem>> map = ls.stream()
+                .collect(Collectors.groupingBy(e -> isJavaParty(e.getContent()) ? JAVA_PARTY : THIRD_PARTY));
         map.forEach((k, v) -> sort(v));
         return map;
     }

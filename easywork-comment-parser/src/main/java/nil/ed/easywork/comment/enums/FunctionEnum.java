@@ -18,13 +18,16 @@ public enum FunctionEnum {
     /**
      * 注释函数枚举
      */
+    @Deprecated
     INSERT("insert"),
     LIST("list"),
+    @Deprecated
     SEARCH("search"),
     UPDATE("update"),
+    @Deprecated
     VO("vo"),
     ENUM("enum");
-    private String name;
+    private final String name;
 
     private static final Map<String, FunctionEnum> map = new HashMap<>(8, 1);
 

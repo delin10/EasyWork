@@ -1,23 +1,7 @@
 ==>>/new_tpl/kyle/config/ServiceImplTemplateConfig.groovy
 package ${root.basePkg}.repository;
-<#assign modelFullName="${root.basePkg}.model.${entity.name}">
-<#assign entityCamelName="${utils.pascalToCamel.trans(entity.name)}">
 
-<@JavaImportIn value="${root.basePkg}.entity.${entity.name}Entity"/>
-<@JavaImportIn value="${root.basePkg}.exception.${entity.name}BizErrorType"/>
-<@JavaImportIn value="${root.basePkg}.repository.${entity.name}Repo"/>
-<@JavaImportIn value="${root.basePkg}.service.${entity.name}Service"/>
-<@JavaImportIn value="${root.basePkg}.converter.${entity.name}Converter"/>
-<@JavaImportIn value="${root.basePkg}.condition.${entity.name}QueryCondition"/>
-<@JavaImportIn value="com.kuaikan.ads.kyle.common.exception.BizException"/>
-<@JavaImportIn value="com.kuaikan.ads.kyle.common.page.PageResult"/>
-<@JavaImportIn value="com.kuaikan.ads.kyle.common.utils.PageUtils"/>
-<@JavaImportIn value="lombok.extern.slf4j.Slf4j"/>
-<@JavaImportIn value="org.springframework.stereotype.Service"/>
-<@JavaImportIn value="javax.annotation.Resource"/>
-<@JavaImportIn value="java.util.List"/>
-<@JavaImportOut/>
-
+__IMPORTS__
 /**
  * @author easywork.
  */

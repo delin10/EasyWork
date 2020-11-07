@@ -1,29 +1,7 @@
 ==>>/new_tpl/kyle/config/RepositoryImplTemplateConfig.groovy
 package ${root.basePkg}.repository.impl;
-<#assign modelFullName="${root.basePkg}.model.${entity.name}">
-<#assign entityCamelName="${utils.pascalToCamel.trans(entity.name)}">
-<#function isCollection name>
-    <#return name?ends_with("Set") || name?ends_with("List") || name?ends_with("Collection")>
-</#function>
-<#function hasAnyCollection fields>
-    <#list listFields as field>
-        <#if isCollection(fieldDescs[field+"-list"].name)>
-            <#return true>
-        </#if>
-    </#list>
-    <#return false>
-</#function>
 
-<@JavaImportIn value="${root.basePkg}.condition.${entity.name}QueryCondition"/>
-<@JavaImportIn value="${root.basePkg}.dao.${entity.name}Mapper"/>
-<@JavaImportIn value="${modelFullName}"/>
-<@JavaImportIn value="${root.basePkg}.repository.${entity.name}Repo"/>
-<@JavaImportIn value="org.springframework.stereotype.Repository"/>
-<@JavaImportIn value="java.util.List"/>
-<@JavaImportIn value="javax.annotation.Resource"/>
-<@JavaImportIn value="com.kuaikan.ads.kyle.common.utils.CommonCollectionUtils"/>
-<@JavaImportOut/>
-
+__IMPORTS__
 /**
  * @author easywork.
  */
@@ -45,10 +23,10 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
 
     @Override
     public List<${entity.name}> getList(${entity.name}QueryCondition condition) {
-        <#if hasAnyCollection(listFields)>
-            if (condition.anySizeEmpty()) {
-                return Collections.emptyList();
-            }
+        <#if CXT.hasAnyCollection>
+        if (condition.anySizeEmpty()) {
+            return Collections.emptyList();
+        }
 
         </#if>
         return ${entityCamelName}Mapper.getList(condition);
@@ -56,7 +34,7 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
 
     @Override
     public int count(${entity.name}QueryCondition condition) {
-        <#if hasAnyCollection(listFields)>
+        <#if CXT.hasAnyCollection>
         if (condition.anySizeEmpty()) {
             return 0;
         }

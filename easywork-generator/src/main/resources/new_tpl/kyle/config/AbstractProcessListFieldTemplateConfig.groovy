@@ -1,52 +1,86 @@
 package new_tpl.kyle.config
 
 import nil.ed.easywork.comment.enums.FunctionEnum
+import nil.ed.easywork.comment.enums.OpType
 import nil.ed.easywork.comment.obj.CommentDescription
 import nil.ed.easywork.generator.config.Config
 import nil.ed.easywork.generator.context.GenerateContextBuilder
 import nil.ed.easywork.generator.singleton.BeanContext
 import nil.ed.easywork.generator.util.FieldUtils
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton
+import org.apache.commons.collections4.CollectionUtils
+import org.apache.commons.lang3.StringUtils
+
+import java.util.function.Function
+import java.util.stream.Collectors
+import java.util.stream.Stream
 
 abstract class AbstractProcessListFieldTemplateConfig extends AbstractOutTemplateConfig {
     final def PROCESSED_LIST_FIELD = "processedListFields";
+    final def QUERY_STR = "listQueryStr";
+
+    final Map<OpType, String> templateMap
+
+    {
+        templateMap = new HashMap<>();
+        Stream.of(OpType.values()).filter(t -> t != OpType.LIKE)
+                .forEach(op -> templateMap.put(op, "%s ${op.getOp()} #{%s}".toString()))
+        templateMap.put(OpType.LIKE, "%s like concat('%%', #{query}, '%%')".toString());
+    }
+
 
     @Override
     void doAction(Map<String, Object> context, String template, Config config) throws IOException {
-        def fields = context.get(FunctionEnum.LIST.name + GenerateContextBuilder.FUNC_FIELDS_SUFFIX) as List<String>
-        def descMap = context.get(GenerateContextBuilder.FIELD_DESC) as Map<String, CommentDescription>
-        def idDesc = new CommentDescription()
-        idDesc.setName("idSet")
-        idDesc.setOriginName("id")
-        idDesc.setFunc(FunctionEnum.LIST)
-        idDesc.setType("Set<Long>")
-        descMap.put("id-list", idDesc)
+        buildCxt(context, template, config)
+        super.doAction(context, template, config)
+        afterAction(context, template, config)
+    }
+
+    void buildCxt(Map<String, Object> context, String template, Config config) throws IOException {
+        def descs = context.get(GenerateContextBuilder.FIELD_DESC) as List<CommentDescription>
         def listFieldValueList = new LinkedList<FieldValue>()
-        fields.forEach(f -> {
+        List<String> queryList = new LinkedList<>()
+        descs.stream().filter(f -> f.getFunc() == FunctionEnum.LIST).forEach(desc -> {
             def v = new FieldValue()
-            def desc = descMap.get("${f}-${FunctionEnum.LIST.name}".toString()) as CommentDescription
+            if (desc.query) {
+                String tpl = templateMap.get(desc.op)
+                if (StringUtils.isNoneBlank(tpl)) {
+                    queryList.add(String.format(tpl, desc.originName, desc.name))
+                }
+                return
+            }
             v.isCollectionSuffix = FieldUtils.isCollectionSuffix(desc.name)
-            v.cutRealName = FieldUtils.cutCollectionSuffix(desc.name)
-            v.camelName = f
-            v.realName = desc.name
-            v.type = desc.type
-            v.generic = BeanContext.TYPE_TOOL.getGenericType(desc.type)
+            v.noSuffixRealName = FieldUtils.cutCollectionSuffix(desc.name)
+            v.noSuffixPascalName = NamingTranslatorSingleton.CAMEL_TO_PASCAL.trans(v.noSuffixRealName)
+            v.colCamelName = NamingTranslatorSingleton.UNDERLINE_TO_CAMEL.trans(desc.originName)
+            v.hasSuffixRealName = desc.name
+            v.realType = desc.type
+            v.listCollectionGenericType = BeanContext.TYPE_TOOL.getGenericType(desc.type)
             v.col = desc.originName
-            v.pascalName = NamingTranslatorSingleton.CAMEL_TO_PASCAL.trans(v.camelName)
+            v.colPascalName = NamingTranslatorSingleton.CAMEL_TO_PASCAL.trans(v.colCamelName)
             listFieldValueList.add(v)
         })
+        String result = queryList.stream().collect(Collectors.joining(" or ", "(", ")"))
+        if (CollectionUtils.isEmpty(queryList)) {
+            result = ""
+
+        }
+        context.put(QUERY_STR, result)
         context.put(PROCESSED_LIST_FIELD, listFieldValueList)
-        super.doAction(context, template, config)
+    }
+
+    void afterAction(Map<String, Object> context, String template, Config config) throws IOException {
         context.remove(PROCESSED_LIST_FIELD)
     }
 
-    class FieldValue {
-        String pascalName
-        String camelName
-        String realName
-        String cutRealName
-        String type
-        String generic
+    static class FieldValue {
+        String colPascalName
+        String colCamelName
+        String hasSuffixRealName
+        String noSuffixRealName
+        String noSuffixPascalName
+        String realType
+        String listCollectionGenericType
         String col
         boolean isCollectionSuffix
     }

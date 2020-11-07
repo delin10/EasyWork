@@ -30,6 +30,9 @@ public class GenerateContextBuilder {
     public static final String ROOT = "root";
     public static final String ADDITIONAL = "additional";
     public static final String CURRENT_IMPORTS = "imports";
+    public static final String ADDITIONAL_PATTERN_IMPORT = "additionalPatternImport";
+    public static final String CURRENT_RENDER_CLAZZ_NAME = "currentRenderClazzName";
+    public static final String MULTI_SEPARATOR = ">>>>>>>>>>";
 
     private Map<String, Object> context = new HashMap<>();
 

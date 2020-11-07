@@ -1,13 +1,7 @@
 ==>>/new_tpl/kyle/config/EnumTemplateConfig.groovy
 package ${root.basePkg}.enums;
 
-<@JavaImportIn value="com.kuaikan.ads.kyle.common.enums.EnumBase"/>
-<@JavaImportIn value="com.kuaikan.ads.kyle.common.utils.EnumUtils"/>
-<@JavaImportIn value="lombok.AllArgsConstructor"/>
-<@JavaImportIn value="lombok.Getter"/>
-<@JavaImportIn value="java.util.Map"/>
-<@JavaImportOut/>
-
+__IMPORTS__
 /**
 * @author easywork.
 */

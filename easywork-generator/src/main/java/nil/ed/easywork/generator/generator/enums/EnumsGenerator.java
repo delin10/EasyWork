@@ -27,14 +27,14 @@ public class EnumsGenerator implements Sql2JavaGenerator {
     @Override
     public List<Object> generate(Map<String, Object> cxt, String template, Config config) {
         @SuppressWarnings("unchecked")
-        Map<String, CommentDescription> descriptionMap = (Map<String, CommentDescription>) cxt.get(
+        List<CommentDescription> descriptions = (List<CommentDescription>) cxt.get(
                 GenerateContextBuilder.FIELD_DESC);
-        descriptionMap.entrySet().stream()
-                .filter(e -> CollectionUtils.isNotEmpty(e.getValue().getEnums()))
+        descriptions.stream()
+                .filter(e -> CollectionUtils.isNotEmpty(e.getEnums()))
                 .forEach(e -> {
-            cxt.put(CURRENT_ENUM_PARAM, e.getValue());
+            cxt.put(CURRENT_ENUM_PARAM, e);
             String afterRender = BeanContext.FREE_MARKER_TEMPLATE_ENGINE.process(template, cxt);
-            callback.callback(afterRender, e.getValue());
+            callback.callback(afterRender, e);
 
         });
         cxt.remove(CURRENT_ENUM_PARAM);

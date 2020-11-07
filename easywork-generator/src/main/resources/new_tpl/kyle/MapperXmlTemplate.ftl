@@ -62,24 +62,24 @@
         <include refid="WHERE_ID"/>
     </update>
 
-    <sql id="LIST_WHERE">
+    <sql id="BASE_CONDITION">
         <where>
-            <#if searchFields?size != 0>
+            <#if listQueryStr?length != 0>
             <if test="query != null and query != ''">
-            (<#list processedSearchFields as f><#if f.camelName = "id">`${f.col}`=<#noparse>#{</#noparse>query<#noparse>}</#noparse><#else>`${f.col}` like concat('%', <#noparse>#{</#noparse>query<#noparse>}</#noparse>, '%')</#if><#sep> or </#sep></#list>)
+            ${listQueryStr}
             </if>
             </#if>
             <#list processedListFields as field>
                 <#if field.isCollectionSuffix>
-            <if test = "${field.realName} != null">
+            <if test = "${field.hasSuffixRealName} != null">
                 and `${field.col}` in
-                <foreach collection="${field.camelName}" item="item" open="(" close=")" separator=",">
+                <foreach collection="${field.hasSuffixRealName}" item="item" open="(" close=")" separator=",">
                 <#noparse>#{</#noparse>item<#noparse>}</#noparse>
                 </foreach>
             </if>
                 <#else>
-            <if test="${field.camelName} != null">
-                and ${field.col}=<#noparse>#{</#noparse>${field}<#noparse>}</#noparse>
+            <if test="${field.hasSuffixRealName} != null">
+                and ${field.col}=<#noparse>#{</#noparse>${field.hasSuffixRealName}<#noparse>}</#noparse>
             </if>
                 </#if>
             </#list>
@@ -104,7 +104,7 @@
     <select id="getList" resultMap="resultMap">
         select *
         from  <include refid="TABLE_NAME"/>
-        <include refid="LIST_WHERE"/>
+        <include refid="BASE_CONDITION"/>
         <include refid="ORDER_BY"/>
         <include refid="LIMIT"/>
     </select>
@@ -112,13 +112,13 @@
     <select id="count" resultType="long">
         select count(1)
         from  <include refid="TABLE_NAME"/>
-        <include refid="LIST_WHERE"/>
+        <include refid="BASE_CONDITION"/>
     </select>
 
     <select id="getOne" resultMap="resultMap">
         select <include refid="SELECT_COLS"/>
         from  <include refid="TABLE_NAME"/>
-        <include refid="LIST_WHERE"/>
+        <include refid="BASE_CONDITION"/>
         limit 1
     </select>
 </mapper>

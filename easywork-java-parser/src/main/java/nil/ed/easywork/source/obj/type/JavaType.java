@@ -47,6 +47,10 @@ public class JavaType {
         return name + "<" + generic.stream().map(JavaType::getSimpleTypeName).collect(Collectors.joining(", "))+ ">";
     }
 
+    public String getTailName() {
+        return name.substring(name.indexOf('.') + 1);
+    }
+
     private void resolveFullyName() {
         int dotIndex = fullyName.lastIndexOf('.');
         if (dotIndex < 0) {

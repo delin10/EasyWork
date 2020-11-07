@@ -2,10 +2,7 @@
 package ${root.basePkg}.entity;
 
 <@JavaImportsIn value="entity.imports"/>
-<@JavaImportIn value="lombok.Data"/>
-<@JavaImportIn value="lombok.experimental.Accessors"/>
-<@JavaImportOut/>
-
+__IMPORTS__
 /**
  * @author easywork.
  */

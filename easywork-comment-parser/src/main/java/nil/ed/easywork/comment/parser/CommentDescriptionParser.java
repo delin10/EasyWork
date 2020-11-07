@@ -2,6 +2,7 @@ package nil.ed.easywork.comment.parser;
 
 import com.google.common.collect.Sets;
 import nil.ed.easywork.comment.enums.FunctionEnum;
+import nil.ed.easywork.comment.enums.OpType;
 import nil.ed.easywork.comment.obj.CommentDescription;
 import nil.ed.easywork.comment.obj.EnumItemDesc;
 import org.apache.commons.beanutils.BeanUtils;
@@ -38,6 +39,8 @@ public class CommentDescriptionParser {
 
     static {
         registerMapper(FunctionEnum.ENUM, "enums", CommentDescriptionParser::resolveEnums);
+        registerMapper(FunctionEnum.LIST, "query", CommentDescriptionParser::resolveQuery);
+        registerMapper(FunctionEnum.LIST, "op", CommentDescriptionParser::resolveOp);
     }
 
     public static void registerMapper(FunctionEnum func, String name, Function<String, Object> mapper) {
@@ -50,11 +53,10 @@ public class CommentDescriptionParser {
         if (StringUtils.isBlank(comment)) {
             return Collections.emptyList();
         }
-        int i = 0;
         String[] arr = comment.split("&");
         List<CommentDescription> commentDescriptions = new LinkedList<>();
         for (String one : arr) {
-            System.out.println(one);
+            one = one.trim();
             CommentDescription description = new CommentDescription();
             parseOneDescription(one, description, 0);
             commentDescriptions.add(description);
@@ -121,6 +123,14 @@ public class CommentDescriptionParser {
             result.add(desc);
         }
         return result;
+    }
+
+    private static boolean resolveQuery(String str) {
+        return Boolean.parseBoolean(str.trim());
+    }
+
+    private static OpType resolveOp(String str) {
+        return OpType.findByStr(str.trim());
     }
 
 }

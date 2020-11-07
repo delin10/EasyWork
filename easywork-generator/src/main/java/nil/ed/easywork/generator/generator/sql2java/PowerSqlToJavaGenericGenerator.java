@@ -13,18 +13,22 @@ import nil.ed.easywork.generator.sql.obj.TableDetails;
 import nil.ed.easywork.generator.tools.TypeTool;
 import nil.ed.easywork.generator.type.ITypeMapper;
 import nil.ed.easywork.generator.type.impl.AdsTypeMapper;
-import nil.ed.easywork.generator.util.sorter.CheckStyleImportSortUtils;
 import nil.ed.easywork.source.obj.type.BaseClass;
+import nil.ed.easywork.source.obj.type.ImportItem;
 import nil.ed.easywork.source.obj.type.JavaType;
 import nil.ed.easywork.sql.obj.ColumnField;
 import nil.ed.easywork.template.ITemplateEngineAdapter;
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 /**
  * @author lidelin.
@@ -83,7 +87,8 @@ public class PowerSqlToJavaGenericGenerator {
         Map<FunctionEnum, List<String>> fieldMap = new HashMap<>(FunctionEnum.values().length);
         Map<String, ColumnField> fieldColMap = new HashMap<>(details.getColumnDetails().size());
         Map<String, ModelField> colFieldMap = new HashMap<>(details.getColumnDetails().size());
-        Map<String, CommentDescription> fieldDesc = new HashMap<>(details.getColumnDetails().size());
+        List<CommentDescription> fieldDesc = new LinkedList<>();
+        Set<String> importSet = new HashSet<>();
         for (FunctionEnum f : FunctionEnum.values()) {
             fieldMap.put(f, new LinkedList<>());
         }
@@ -94,18 +99,29 @@ public class PowerSqlToJavaGenericGenerator {
                     ModelField field = new ModelField(name, type);
                     field.setPrimary(columnDetails.getField().isPrimary());
                     clazz.getFields().add(field);
-                    if (!"java.lang".equals(type.getPkg())) {
-//                        clazz.getImports().add(type.getFullyName());
+                    if (config.needImport(type.getFullyName())) {
+                        importSet.add(config.getType(type.getName()));
+                        Queue<JavaType> queue = new LinkedList<>();
+                        if (CollectionUtils.isNotEmpty(type.getGeneric())) {
+                            queue.addAll(type.getGeneric());
+                        }
+                        JavaType cur;
+                        while ((cur = queue.poll()) != null) {
+                            importSet.add(config.getType(cur.getName()));
+                            if (CollectionUtils.isNotEmpty(cur.getGeneric())) {
+                                queue.addAll(cur.getGeneric());
+                            }
+                        }
                     }
                     columnDetails.getDescriptionMap().forEach((func, desc) -> {
                         List<String> fields = fieldMap.get(func);
                         fields.add(field.getName());
-                        fieldDesc.put(field.getName() + "-" + func.getName(), desc);
+                        fieldDesc.add(desc);
                     });
                     fieldColMap.put(name, columnDetails.getField());
                     colFieldMap.put(columnDetails.getField().getName(), field);
                 });
-//        CheckStyleImportSortUtils.sort(clazz.getImports());
+        importSet.stream().map(ImportItem::new).forEach(clazz.getImports()::add);
         builder.set(GenerateContextBuilder.ENTITY, clazz);
         builder.set(GenerateContextBuilder.TABLE, details);
         builder.set(GenerateContextBuilder.FIELD_COL_MAP, fieldColMap);

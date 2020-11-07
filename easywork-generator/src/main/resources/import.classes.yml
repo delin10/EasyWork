@@ -1,0 +1,97 @@
+# 包装类型
+java.lang.Byte:
+    needImport: false
+java.lang.Boolean:
+    needImport: false
+java.lang.Short:
+    needImport: false
+java.lang.Character:
+    needImport: false
+java.lang.Integer:
+    needImport: false
+java.lang.Float:
+    needImport: false
+java.lang.Long:
+    needImport: false
+
+# 基本类型
+byte:
+    needImport: false
+boolean:
+    needImport: false
+short:
+    needImport: false
+char:
+    needImport: false
+int:
+    needImport: false
+float:
+    needImport: false
+long:
+    needImport: false
+
+java.lang.String:
+    needImport: false
+
+# 集合
+java.util.Map:
+    needImport: true
+java.util.List:
+    needImport: true
+java.util.ArrayList:
+    needImport: true
+java.util.LinkedList:
+    needImport: true
+java.util.Set:
+    needImport: true
+java.util.Collection:
+    needImport: true
+java.time.LocalDateTime:
+    needImport: true
+java.time.LocalDate:
+    needImport: true
+
+# 工具类
+java.util.Arrays:
+    needImport: true
+java.util.Collections:
+    needImport: true
+
+lombok.Data:
+    needImport: true
+lombok.experimental.Accessors:
+    needImport: true
+org.springframework.beans.BeanUtils:
+    needImport: true
+lombok.Getter:
+    needImport: true
+lombok.AllArgsConstructor:
+    needImport: true
+
+# spring
+org.springframework.stereotype.Repository:
+    needImport: true
+
+# enterprise
+
+com.kuaikan.ads.kyle.common.exception.ErrorType:
+    needImport: true
+com.kuaikan.ads.kyle.common.enums.EnumBase:
+    needImport: true
+com.kuaikan.ads.kyle.common.utils.EnumUtils:
+    needImport: true
+javax.annotation.Resource:
+    needImport: true
+com.kuaikan.ads.kyle.common.utils.CommonCollectionUtils:
+    needImport: true
+com.kuaikan.ads.kyle.common.exception.BizException:
+    needImport: true
+com.kuaikan.ads.kyle.common.page.PageResult:
+    needImport: true
+com.kuaikan.ads.kyle.common.page.PageCondition:
+    needImport: true
+
+
+
+
+

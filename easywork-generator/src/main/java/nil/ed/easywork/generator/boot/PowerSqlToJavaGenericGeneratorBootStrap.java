@@ -23,7 +23,7 @@ public class PowerSqlToJavaGenericGeneratorBootStrap {
 //        String basePkg = "com.kuaikan.ads.kyle.account.reserved";
         String basePkg = "com.kuaikan.ads.kyle.ad";
 //        String basePkg = "com.kuaikan.adsystem";
-        String basePath = "/Users/admin/delin/ad_material";
+        String basePath = "/Users/admin/delin/generated/ad_material";
         config.setBasePkg(basePkg);
         config.setBasePath(basePath);
         config.setPrefix("");

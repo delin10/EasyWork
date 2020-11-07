@@ -132,7 +132,7 @@ public class SQLFileProcessor implements ISQLProcessor{
        return type;
     }
 
-    private static final String PATTERN = "[\\s\\S]*?\\{\\{(.*?)}}";
+    private static final String PATTERN = "[\\s\\S]*?\\{\\{([\\s\\S]*?)}}";
     private static final Pattern REGEX_PATTERN = Pattern.compile(PATTERN);
     private String getCommentDescription(String comment) {
         if (StringUtils.isBlank(comment)) {

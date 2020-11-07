@@ -3,11 +3,7 @@ package ${root.basePkg}.dao;
 <#assign modelFullName="${root.basePkg}.model.${entity.name}">
 <#assign entityCamelName="${utils.pascalToCamel.trans(entity.name)}">
 
-<@JavaImportIn value="${root.basePkg}.condition.${entity.name}QueryCondition"/>
-<@JavaImportIn value="${modelFullName}"/>
-<@JavaImportIn value="java.util.List"/>
-<@JavaImportOut/>
-
+__IMPORTS__
 /**
  * @author easywork.
  */

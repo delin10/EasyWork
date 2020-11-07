@@ -1,15 +1,7 @@
 ==>>/new_tpl/kyle/config/ServiceInterfaceTemplateConfig.groovy
 package ${root.basePkg}.repository;
-<#assign modelFullName="${root.basePkg}.model.${entity.name}">
-<#assign entityCamelName="${utils.pascalToCamel.trans(entity.name)}">
 
-<@JavaImportIn value="${root.basePkg}.condition.${entity.name}QueryCondition"/>
-<@JavaImportIn value="com.kuaikan.ads.kyle.common.exception.BizException"/>
-<@JavaImportIn value="com.kuaikan.ads.kyle.common.page.PageResult"/>
-<@JavaImportIn value="${root.basePkg}.entity.${entity.name}Entity"/>
-<@JavaImportIn value="java.util.List"/>
-<@JavaImportOut/>
-
+__IMPORTS__
 /**
  * @author easywork.
  */

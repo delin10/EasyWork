@@ -20,8 +20,7 @@ public interface TemplateAction {
      */
     default void doAction(Map<String, Object> context, String template, Config config) throws IOException {
         FreeMarkerTemplateEngineAdapter adapter = new FreeMarkerTemplateEngineAdapter();
-        String value = adapter.process(template, context);
-        System.out.println(value);
+        adapter.process(template, context);
     }
 
 }

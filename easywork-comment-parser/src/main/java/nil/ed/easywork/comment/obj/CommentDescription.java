@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import nil.ed.easywork.comment.enums.FunctionEnum;
+import nil.ed.easywork.comment.enums.OpType;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
@@ -26,5 +27,9 @@ public class CommentDescription {
     private String type;
 
     private List<EnumItemDesc> enums;
+
+    private OpType op = OpType.EQ;
+
+    private boolean query = false;
 
 }

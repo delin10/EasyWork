@@ -7,6 +7,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import lombok.SneakyThrows;
 import nil.ed.easywork.generator.context.GenerateContextBuilder;
+import nil.ed.easywork.source.obj.type.ImportItem;
 import nil.ed.easywork.template.support.FreeMarkerSupport;
 import ognl.Ognl;
 
@@ -28,8 +29,8 @@ public class JavaImportsDirectiveTemplateModel implements TemplateDirectiveModel
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         String imp = String.valueOf(params.get("value"));
         Object cxt = FreeMarkerSupport.getRawContext(env);
-        List<String> imports = (List<String>) Ognl.getValue(imp, cxt);
-        List<String> contextImports = FreeMarkerSupport.getList(GenerateContextBuilder.CURRENT_IMPORTS, env);
+        List<ImportItem> imports = (List<ImportItem>) Ognl.getValue(imp, cxt);
+        List<ImportItem> contextImports = FreeMarkerSupport.getList(GenerateContextBuilder.CURRENT_IMPORTS, env);
         contextImports.addAll(imports);
     }
 
