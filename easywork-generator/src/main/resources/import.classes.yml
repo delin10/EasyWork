@@ -90,8 +90,28 @@ com.kuaikan.ads.kyle.common.page.PageResult:
     needImport: true
 com.kuaikan.ads.kyle.common.page.PageCondition:
     needImport: true
+org.springframework.web.bind.annotation.GetMapping:
+    needImport: true
+org.springframework.web.bind.annotation.PostMapping:
+    needImport: true
+org.springframework.web.bind.annotation.RequestBody:
+    needImport: true
+org.springframework.web.bind.annotation.RequestMapping:
+    needImport: true
+org.springframework.web.bind.annotation.RequestParam:
+    needImport: true
+org.springframework.web.bind.annotation.RestController:
+    needImport: true
 
+# jackjson
 
-
+com.fasterxml.jackson.annotation.JsonInclude:
+    needImport: true
+com.fasterxml.jackson.databind.PropertyNamingStrategy:
+    needImport: true
+com.fasterxml.jackson.databind.annotation.JsonNaming:
+    needImport: true
+com.fasterxml.jackson.databind.annotation.JsonSerialize:
+    needImport: true
 
 

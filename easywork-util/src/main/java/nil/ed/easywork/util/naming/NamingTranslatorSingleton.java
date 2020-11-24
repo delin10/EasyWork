@@ -18,7 +18,8 @@ public enum NamingTranslatorSingleton implements INamingTranslator {
     UNDERLINE_TO_PASCAL(new UnderlineToPascalNamingTranslator()),
     CAMEL_TO_UNDERLINE(new CamelToUnderlineNamingStrategy()),
     PASCAL_TO_CAMEL(new PascalToCamelNamingStrategy()),
-    CAMEL_TO_PASCAL(new CamelToPascalNamingTranslator());
+    CAMEL_TO_PASCAL(new CamelToPascalNamingTranslator()),
+    MID_LINE_TO_CAMEL(new MidLineToCamelNamingStrategy());
     private INamingTranslator translator;
 
     @Override

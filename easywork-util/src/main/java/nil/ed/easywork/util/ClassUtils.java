@@ -1,5 +1,7 @@
 package nil.ed.easywork.util;
 
+import org.apache.commons.beanutils.ConstructorUtils;
+
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
@@ -54,6 +56,15 @@ public class ClassUtils {
                 }
             }
 
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T init(Class<T> clazz) {
+        try {
+            return (T) ConstructorUtils.invokeConstructor(clazz, null);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

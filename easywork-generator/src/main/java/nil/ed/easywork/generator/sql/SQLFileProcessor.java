@@ -112,7 +112,7 @@ public class SQLFileProcessor implements ISQLProcessor{
     private static final Set<Character> PUNC_CHAR_SET = Sets.newHashSet('，', '。', ',', '.');
     private String getRealComment(String comment) {
         String tmpComment = Optional.ofNullable(comment)
-                .map(c -> c.replaceAll("\\{\\{.*?}}".toString(), ""))
+                .map(c -> c.replaceAll("\\{\\{[\\s\\S]*?}}".toString(), ""))
                 .orElse(StringUtils.EMPTY);
         if (StringUtils.isBlank(tmpComment)) {
             return StringUtils.EMPTY;
