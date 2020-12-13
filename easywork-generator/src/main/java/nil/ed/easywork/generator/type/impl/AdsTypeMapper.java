@@ -20,6 +20,8 @@ public class AdsTypeMapper implements ITypeMapper {
 
     private static final Map<String, JavaType> TYPE_MAP = new HashMap<>();
 
+    private static final Map<String, String> FULL_TYPE_MAP = new HashMap<>();
+
     static {
         batchPut(UsualJavaTypeCache.getType(Object.class),
                 "ARRAY", "DATALINK", "DISTINCT", "JAVA_OBJECT", "NULL", "OTHER", "REF", "STRUCT");
@@ -29,7 +31,7 @@ public class AdsTypeMapper implements ITypeMapper {
                 "DOUBLE", "FLOAT");
         batchPut(UsualJavaTypeCache.getType(Long.class), "BIGINT");
         batchPut(UsualJavaTypeCache.getType(Integer.class),
-                "INTEGER", "SMALLINT", "TINYINT");
+                "INTEGER", "SMALLINT", "TINYINT", "INT");
         batchPut(UsualJavaTypeCache.getType(byte[].class),
                 "BINARY", "BLOB", "LONGVARBINARY", "VARBINARY");
         batchPut(UsualJavaTypeCache.getType(Boolean.class),
@@ -46,6 +48,8 @@ public class AdsTypeMapper implements ITypeMapper {
                 "TIME_WITH_TIMEZONE");
         batchPut(UsualJavaTypeCache.getType(OffsetDateTime.class),
                 "TIMESTAMP_WITH_TIMEZONE");
+
+        FULL_TYPE_MAP.put("INT", "INTEGER");
     }
 
     private static void batchPut(JavaType type, String...dbTypes) {
@@ -58,5 +62,10 @@ public class AdsTypeMapper implements ITypeMapper {
     public String map(String type) {
         return TYPE_MAP.getOrDefault(type.toUpperCase(),
                 UsualJavaTypeCache.getType(Object.class)).getFullyName();
+    }
+
+    @Override
+    public String fullDbTypeName(String type) {
+        return FULL_TYPE_MAP.getOrDefault(type.toUpperCase(), type);
     }
 }

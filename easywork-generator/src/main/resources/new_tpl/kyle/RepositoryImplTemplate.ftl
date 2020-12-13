@@ -12,12 +12,12 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
     private ${entity.name}Mapper ${entityCamelName}Mapper;
 
     @Override
-    public int insert(${entity.name} ${entityCamelName}) {
+    public long insert(${entity.name} ${entityCamelName}) {
         return ${entityCamelName}Mapper.insert(${entityCamelName});
     }
 
     @Override
-    public int update(${entity.name} ${entityCamelName}) {
+    public long update(${entity.name} ${entityCamelName}) {
         return ${entityCamelName}Mapper.update(${entityCamelName});
     }
 
@@ -33,7 +33,7 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
     }
 
     @Override
-    public int count(${entity.name}QueryCondition condition) {
+    public long count(${entity.name}QueryCondition condition) {
         <#if CXT.hasAnyCollection>
         if (condition.anySizeEmpty()) {
             return 0;
@@ -45,7 +45,7 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
 
     @Override
     public ${entity.name} getOne(${entity.name}QueryCondition condition) {
-        return ${entityCamelName}Mapper.getOne(id);
+        return ${entityCamelName}Mapper.getOne(condition);
     }
 
 

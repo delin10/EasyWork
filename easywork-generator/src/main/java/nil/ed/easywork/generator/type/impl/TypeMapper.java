@@ -17,6 +17,8 @@ public class TypeMapper implements ITypeMapper {
 
     private static final Map<String, String> TYPE_MAP = new HashMap<>();
 
+    private static final Map<String, String> FULL_TYPE_MAP = new HashMap<>();
+
     static {
         TYPE_MAP.put("ARRAY",
                 Object.class.getName());
@@ -86,6 +88,8 @@ public class TypeMapper implements ITypeMapper {
         TYPE_MAP.put("VARCHAR", String.class.getName());
         TYPE_MAP.put("TIME_WITH_TIMEZONE", "java.time.OffsetTime");
         TYPE_MAP.put("TIMESTAMP_WITH_TIMEZONE", "java.time.OffsetDateTime");
+
+        FULL_TYPE_MAP.put("INT", "INTEGER");
     }
 
     @Override
@@ -93,4 +97,8 @@ public class TypeMapper implements ITypeMapper {
         return TYPE_MAP.get(sqlType);
     }
 
+    @Override
+    public String fullDbTypeName(String type) {
+        return FULL_TYPE_MAP.getOrDefault(type.toUpperCase(), type);
+    }
 }

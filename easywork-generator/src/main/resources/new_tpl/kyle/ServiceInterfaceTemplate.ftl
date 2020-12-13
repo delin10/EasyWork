@@ -12,7 +12,7 @@ public interface ${entity.name}Service {
      * @param ${entityCamelName}Entity ${table.call}.
      * @throws BizException 插入失败.
      */
-    void add${entity.name}(${entity.name}Entity ${entityCamelName}Entity) throws BizException;
+    ${entity.name}Entity add${entity.name}(${entity.name}Entity ${entityCamelName}Entity) throws BizException;
 
     /**
      * 更新${table.call}.

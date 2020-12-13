@@ -21,7 +21,7 @@ public class PowerSqlToJavaGenericGeneratorBootStrap {
         Config config = new Config();
 //        String basePkg = "com.kuaikan.ads.kyle.operation.log";
 //        String basePkg = "com.kuaikan.ads.kyle.account.reserved";
-        String basePkg = "com.kuaikan.ads.enterprise.service";
+        String basePkg = "nil.ed.easywork.generator.source";
 //        String basePkg = "com.kuaikan.adsystem";
         String basePath = "/Users/admin/delin/generated/enterprise_market";
         config.setBasePkg(basePkg);

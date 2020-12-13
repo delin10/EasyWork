@@ -34,6 +34,8 @@ public class Config {
         typeCache = loader.load();
         PATTERN_MAP = typeCache.entrySet().stream()
                 .collect(Collectors.toMap(e -> Pattern.compile("\\b"+ e.getKey() +"\\b"), Map.Entry::getValue));
+         typeCache.entrySet()
+                 .forEach(e -> PATTERN_MAP.put(Pattern.compile("\\b@"+ e.getKey() +"\\b"), e.getValue()));
     }
 
     public boolean needImport(String clazz) {

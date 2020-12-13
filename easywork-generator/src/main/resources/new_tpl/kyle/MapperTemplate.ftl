@@ -14,14 +14,14 @@ public interface ${entity.name}Mapper {
      * @param ${entityCamelName} 记录.
      * @return 影响行数.
      */
-    int insert(${entity.name} ${entityCamelName});
+    long insert(${entity.name} ${entityCamelName});
 
     /**
      * 更新记录.
      * @param ${entityCamelName} 记录.
      * @return 影响行数.
      */
-    int update(${entity.name} ${entityCamelName});
+    long update(${entity.name} ${entityCamelName});
 
     /**
      * 根据条件查询列表.
@@ -35,7 +35,7 @@ public interface ${entity.name}Mapper {
      * @param condition 条件.
      * @return 总数.
      */
-    int count(${entity.name}QueryCondition condition);
+    long count(${entity.name}QueryCondition condition);
 
     /**
      * 根据条件查询单条记录.

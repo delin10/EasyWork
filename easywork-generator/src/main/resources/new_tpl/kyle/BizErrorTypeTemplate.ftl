@@ -10,8 +10,7 @@ public enum ${entity.name}BizErrorType implements ErrorType {
     /**
     * 业务错误码.
     */
-    INSERT_FAILED(1, "插入失败"),
-    UPDATE_FAILED(2, "更新失败")
+    SYSTEM_ERR(1, "系统错误"),
     ;
     // todo change biz prefix
     public static final int BIZ_CODE_PREFIX = 000000;

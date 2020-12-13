@@ -12,4 +12,11 @@ public interface ITypeMapper {
      */
     String map(String type);
 
+    /**
+     * 完整数据库类型名称.
+     * @param type 类型.
+     * @return 完整数据库类型名称.
+     */
+    String fullDbTypeName(String type);
+
 }

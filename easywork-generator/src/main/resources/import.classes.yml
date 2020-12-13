@@ -13,6 +13,8 @@ java.lang.Float:
     needImport: false
 java.lang.Long:
     needImport: false
+java.lang.Object:
+    needImport: false
 
 # 基本类型
 byte:
@@ -67,20 +69,19 @@ lombok.Getter:
     needImport: true
 lombok.AllArgsConstructor:
     needImport: true
+lombok.extern.slf4j.Slf4j:
+    needImport: true
 
 # spring
 org.springframework.stereotype.Repository:
     needImport: true
 
 # enterprise
-
 com.kuaikan.ads.kyle.common.exception.ErrorType:
     needImport: true
 com.kuaikan.ads.kyle.common.enums.EnumBase:
     needImport: true
 com.kuaikan.ads.kyle.common.utils.EnumUtils:
-    needImport: true
-javax.annotation.Resource:
     needImport: true
 com.kuaikan.ads.kyle.common.utils.CommonCollectionUtils:
     needImport: true
@@ -90,6 +91,12 @@ com.kuaikan.ads.kyle.common.page.PageResult:
     needImport: true
 com.kuaikan.ads.kyle.common.page.PageCondition:
     needImport: true
+com.kuaikan.ads.kyle.common.utils.ListUtils:
+    needImport: true
+com.kuaikan.ads.kyle.common.utils.PageUtils:
+    needImport: true
+
+# spring
 org.springframework.web.bind.annotation.GetMapping:
     needImport: true
 org.springframework.web.bind.annotation.PostMapping:
@@ -114,4 +121,6 @@ com.fasterxml.jackson.databind.annotation.JsonNaming:
 com.fasterxml.jackson.databind.annotation.JsonSerialize:
     needImport: true
 
-
+# javax
+javax.annotation.Resource:
+    needImport: true

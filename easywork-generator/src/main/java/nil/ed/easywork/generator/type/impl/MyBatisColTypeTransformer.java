@@ -13,6 +13,7 @@ public class MyBatisColTypeTransformer implements ColTypeTransformer {
     private static final Map<String, String> TRANSFORM_MAP = new HashMap<>();
     static {
         TRANSFORM_MAP.put("TEXT", "VARCHAR");
+        TRANSFORM_MAP.put("INT", "INTEGER");
     }
 
     @Override
