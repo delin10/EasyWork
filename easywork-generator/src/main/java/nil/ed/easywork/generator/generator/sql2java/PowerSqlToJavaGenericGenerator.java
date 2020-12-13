@@ -116,7 +116,7 @@ public class PowerSqlToJavaGenericGenerator {
                     columnDetails.getDescriptionMap().forEach((func, desc) -> {
                         List<String> fields = fieldMap.get(func);
                         fields.add(field.getName());
-                        fieldDesc.add(desc);
+                        fieldDesc.addAll(desc);
                     });
                     fieldColMap.put(name, columnDetails.getField());
                     colFieldMap.put(columnDetails.getField().getName(), field);

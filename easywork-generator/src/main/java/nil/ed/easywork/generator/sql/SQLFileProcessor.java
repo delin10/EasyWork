@@ -94,7 +94,8 @@ public class SQLFileProcessor implements ISQLProcessor{
                     });
                     descriptions.stream()
                             .peek(desc -> desc.setOriginName(columnField.getName()))
-                            .forEach(description -> field.getDescriptionMap().put(description.getFunc(), description));
+                            .forEach(description -> field.getDescriptionMap().computeIfAbsent(description.getFunc(),
+                                    k -> new LinkedList<>()).add(description));
                     columnField.setComment(getRealComment(columnField.getComment()));
                     columnDetails.add(field);
                 });

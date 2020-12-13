@@ -7,6 +7,7 @@ import nil.ed.easywork.generator.config.Config
 import nil.ed.easywork.generator.context.GenerateContextBuilder
 import nil.ed.easywork.generator.singleton.BeanContext
 import nil.ed.easywork.generator.util.FieldUtils
+import nil.ed.easywork.source.obj.type.JavaType
 import nil.ed.easywork.util.naming.NamingTranslatorSingleton
 import org.apache.commons.collections4.CollectionUtils
 import org.apache.commons.lang3.StringUtils
@@ -54,10 +55,11 @@ abstract class AbstractProcessListFieldTemplateConfig extends AbstractOutTemplat
             v.noSuffixPascalName = NamingTranslatorSingleton.CAMEL_TO_PASCAL.trans(v.noSuffixRealName)
             v.colCamelName = NamingTranslatorSingleton.UNDERLINE_TO_CAMEL.trans(desc.originName)
             v.hasSuffixRealName = desc.name
-            v.realType = desc.type
+            v.realType = JavaType.create(desc.type).getSimpleTypeName()
             v.listCollectionGenericType = BeanContext.TYPE_TOOL.getGenericType(desc.type)
             v.col = desc.originName
             v.colPascalName = NamingTranslatorSingleton.CAMEL_TO_PASCAL.trans(v.colCamelName)
+            v.op = desc.op.op
             listFieldValueList.add(v)
         })
         String result = queryList.stream().collect(Collectors.joining(" or ", "(", ")"))
@@ -82,6 +84,9 @@ abstract class AbstractProcessListFieldTemplateConfig extends AbstractOutTemplat
         String realType
         String listCollectionGenericType
         String col
+        String op
         boolean isCollectionSuffix
     }
 }
+
+

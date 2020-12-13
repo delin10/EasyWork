@@ -79,7 +79,7 @@
             </if>
                 <#else>
             <if test="${field.hasSuffixRealName} != null">
-                and ${field.col}=<#noparse>#{</#noparse>${field.hasSuffixRealName}<#noparse>}</#noparse>
+                and ${field.col} ${field.op} <#noparse>#{</#noparse>${field.hasSuffixRealName}<#noparse>}</#noparse>
             </if>
                 </#if>
             </#list>

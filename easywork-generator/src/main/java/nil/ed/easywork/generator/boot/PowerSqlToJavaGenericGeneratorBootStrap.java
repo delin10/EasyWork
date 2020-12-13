@@ -14,16 +14,16 @@ import nil.ed.easywork.util.ClasspathFileUtils;
  */
 public class PowerSqlToJavaGenericGeneratorBootStrap {
 
-    private static SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/enterprise_market.sql",
+    // sql path修改为自己的sql文件路径
+    private static SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/ad_material.sql",
             new AdsTypeMapper(), new MyBatisColTypeTransformer());
 
     public static void main(String[] args) {
         Config config = new Config();
-//        String basePkg = "com.kuaikan.ads.kyle.operation.log";
-//        String basePkg = "com.kuaikan.ads.kyle.account.reserved";
+        // 修改为生成的类的包路径
         String basePkg = "nil.ed.easywork.generator.source";
-//        String basePkg = "com.kuaikan.adsystem";
-        String basePath = "/Users/admin/delin/generated/enterprise_market";
+        // 修改为生成类文件的输出目录
+        String basePath = "/Users/admin/delin/generated/ad_material";
         config.setBasePkg(basePkg);
         config.setBasePath(basePath);
         config.setPrefix("");

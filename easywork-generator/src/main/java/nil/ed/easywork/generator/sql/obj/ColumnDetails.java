@@ -7,6 +7,7 @@ import nil.ed.easywork.comment.obj.CommentDescription;
 import nil.ed.easywork.sql.obj.ColumnField;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,7 +19,7 @@ public class ColumnDetails  {
 
     private ColumnField field;
 
-    private Map<FunctionEnum, CommentDescription> descriptionMap = new HashMap<>();
+    private Map<FunctionEnum, List<CommentDescription>> descriptionMap = new HashMap<>();
 
     public ColumnDetails(ColumnField field) {
         this.field = field;
