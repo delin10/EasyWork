@@ -8,6 +8,7 @@
 进入easywork-generator模块，修改nil.ed.easywork.generator.boot.PowerSqlToJavaGenericGeneratorBootStrap文件，修改见代码文件注释。
 ### 使用Comment Description DSL
 
+
 Comment Description使用`{{}}`声明描述，函数之间使用'&'进行分隔，描述内容主要包含两种函数：
 #### list
 
@@ -16,8 +17,11 @@ list[值声明2(值),值声明2(值)]
 ```
 值声明：
 name  - 定义该列对应在Condition类中变量名称，当后缀为Set、Collection、List等时，条件运算符将会自动确认为`in`，设置op无效
+
 type  - 定义该列对应在Condition类中变量类型
+
 query - 定义query条件，一般用于query模糊搜索或者query精确搜索
+
 op    - 定义条件运算符
 
 优先级：query > name suffix > normal
@@ -132,7 +136,9 @@ Mapper Xml
 enum[值声明2(值),值声明2(值)]
 ```
 值声明：
+
 name  - 定义枚举类名称
+
 enums - 定义枚举内容，目前只支持code、desc格式，格式为：<枚举名称:code@desc><枚举名称2:code@desc>...
 ```sql
 `operation_status` tinyint(4) default '1' not null comment '操作类型：1-正常 2-删除{{
