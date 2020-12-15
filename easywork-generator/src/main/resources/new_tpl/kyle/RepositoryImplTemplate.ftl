@@ -24,7 +24,7 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
     @Override
     public List<${entity.name}> getList(${entity.name}QueryCondition condition) {
         <#if CXT.hasAnyCollection>
-        if (condition.anySizeEmpty()) {
+        if (condition.isEmptyCondition()) {
             return Collections.emptyList();
         }
 
@@ -35,7 +35,7 @@ public class ${entity.name}RepositoryImpl implements ${entity.name}Repo {
     @Override
     public long count(${entity.name}QueryCondition condition) {
         <#if CXT.hasAnyCollection>
-        if (condition.anySizeEmpty()) {
+        if (condition.isEmptyCondition()) {
             return 0;
         }
 

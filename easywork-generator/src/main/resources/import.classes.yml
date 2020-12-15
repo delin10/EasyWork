@@ -53,6 +53,9 @@ java.time.LocalDateTime:
 java.time.LocalDate:
     needImport: true
 
+java.math.BigDecimal:
+    needImport: true
+
 # 工具类
 java.util.Arrays:
     needImport: true
@@ -74,6 +77,10 @@ lombok.extern.slf4j.Slf4j:
 
 # spring
 org.springframework.stereotype.Repository:
+    needImport: true
+org.springframework.stereotype.Service:
+    needImport: true
+org.springframework.stereotype.Autowired:
     needImport: true
 
 # enterprise

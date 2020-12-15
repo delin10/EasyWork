@@ -1,5 +1,5 @@
 ==>>/new_tpl/kyle/config/ServiceImplTemplateConfig.groovy
-package ${root.basePkg}.repository;
+package ${root.basePkg}.service;
 
 __IMPORTS__
 /**
@@ -52,11 +52,11 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
     }
 
     @Override
-    public ${entity.name}Entity get${entity.name}(Long id) {
-        log.debug("Start to invoke getById with params: id = {}", id);
-        ${entity.name} result = ${entity.name}Converter.to${entity.name}Entity(${entityCamelName}Repo.getOne(id));
+    public ${entity.name}Entity get${entity.name}(${entity.name}QueryCondition condition) {
+        log.debug("Start to invoke getById with params: condition = {}", condition);
+        ${entity.name}Entity result = ${entity.name}Converter.to${entity.name}Entity(${entityCamelName}Repo.getOne(condition));
         log.debug("Succeed to invoke getById with result: {}", result);
-        return ${entity.name}Converter.to${entity.name}Entity(result);
+        return result;
     }
 
 }

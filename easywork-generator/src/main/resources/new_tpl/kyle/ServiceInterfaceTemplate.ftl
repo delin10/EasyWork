@@ -1,5 +1,5 @@
 ==>>/new_tpl/kyle/config/ServiceInterfaceTemplateConfig.groovy
-package ${root.basePkg}.repository;
+package ${root.basePkg}.service;
 
 __IMPORTS__
 /**

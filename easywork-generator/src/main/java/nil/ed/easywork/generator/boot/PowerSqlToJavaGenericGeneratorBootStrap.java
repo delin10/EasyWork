@@ -15,15 +15,15 @@ import nil.ed.easywork.util.ClasspathFileUtils;
 public class PowerSqlToJavaGenericGeneratorBootStrap {
 
     // sql path修改为自己的sql文件路径
-    private static SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/ad_material.sql",
+    private static SQLFileProcessor processor = new SQLFileProcessor("/Users/admin/delin/sql/edata.sql",
             new AdsTypeMapper(), new MyBatisColTypeTransformer());
 
     public static void main(String[] args) {
         Config config = new Config();
         // 修改为生成的类的包路径
-        String basePkg = "nil.ed.easywork.generator.source";
+        String basePkg = "com.kuaikan.ads.enterprise.service";
         // 修改为生成类文件的输出目录
-        String basePath = "/Users/admin/delin/generated/ad_material";
+        String basePath = "/Users/admin/delin/generated/edata";
         config.setBasePkg(basePkg);
         config.setBasePath(basePath);
         config.setPrefix("");

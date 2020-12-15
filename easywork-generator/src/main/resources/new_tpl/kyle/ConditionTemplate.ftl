@@ -29,7 +29,7 @@ public class ${entity.name}QueryCondition extends PageCondition {
     </#if>
 </#list>
 <#if CXT.hasAnyCollection>
-    public boolean anySizeEmpty() {
+    public boolean isEmptyCondition() {
         return CommonCollectionUtils.anySizeEmpty(${CXT.joinedCollectionStr});
     }
 

@@ -102,7 +102,7 @@
     </sql>
 
     <select id="getList" resultMap="resultMap">
-        select *
+        select <include refid="SELECT_COLS"/>
         from  <include refid="TABLE_NAME"/>
         <include refid="BASE_CONDITION"/>
         <include refid="ORDER_BY"/>
